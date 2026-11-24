@@ -157,7 +157,10 @@ export const ScrollExpandingMosaic: React.FC = () => {
                   autoPlay={!shouldReduceMotion}
                   loop
                   preload="metadata"
-                  className="w-full h-full object-contain relative z-10"
+                  disablePictureInPicture
+                  disableRemotePlayback
+                  controlsList="nodownload nofullscreen noremoteplayback"
+                  className="w-full h-full object-contain relative z-10 pointer-events-none"
                 >
                   <source src="/videos/campus-life-1080p.mp4" type="video/mp4" />
                 </video>
@@ -230,7 +233,10 @@ export const ScrollExpandingMosaic: React.FC = () => {
             autoPlay
             loop
             preload="metadata"
-            className="w-full h-full object-cover"
+            disablePictureInPicture
+            disableRemotePlayback
+            controlsList="nodownload nofullscreen noremoteplayback"
+            className="w-full h-full object-cover pointer-events-none"
           >
             <source src="/videos/campus-life-1080p.mp4" type="video/mp4" />
           </video>

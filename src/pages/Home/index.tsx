@@ -7,7 +7,6 @@ import {
   X,
   ArrowRight, GraduationCap, MapPin
 } from 'lucide-react';
-import { OFFICIAL_PRINCIPAL_INFO } from '../../data/school';
 import { BLOG_POSTS } from '../../data/blog';
 import { QuickAdmissionDrawer } from '../../components/common/QuickAdmissionDrawer';
 import Faq05 from '@/components/ui/faq-05';
@@ -156,93 +155,6 @@ export const HomePage: React.FC = () => {
             className="w-full h-auto object-contain block"
           />
         </picture>
-      </section>
-
-      {/* ----------------------------------------------------
-          SECTION 03 - PRINCIPAL LEADERSHIP & DISTINCTION SPOTLIGHT
-         ---------------------------------------------------- */}
-      <section className="py-10 sm:py-12 lg:py-14 bg-white overflow-hidden">
-        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
-            
-            {/* Principal Photo */}
-            <div className="lg:col-span-5 relative editorial-reveal">
-              <div className="bg-white p-2.5 border border-slate-200 shadow-sm">
-                <div className="border border-slate-200 bg-white flex items-center justify-center py-6 px-5">
-                  <div className="text-center space-y-3">
-                    {/* Official Photograph of Principal Mam */}
-                    <div className="relative w-32 h-32 sm:w-36 sm:h-36 mx-auto rounded-full p-1 bg-gradient-to-tr from-[#DF711B] via-amber-300 to-[#DF711B] shadow-md shrink-0">
-                      <img
-                        src="/images/pages/home/leadership/principal-square.webp"
-                        loading="lazy"
-                        decoding="async"
-                        onError={(e) => {
-                          const target = e.currentTarget;
-                          if (target.src.endsWith('.webp')) {
-                            target.src = '/images/pages/home/leadership/principal-square.jpg';
-                          } else if (!target.src.includes('chinmaya')) {
-                            target.src = '/images/chinmaya/leadership/principal_dimple_mistry.jpg';
-                          }
-                        }}
-                        alt={OFFICIAL_PRINCIPAL_INFO.name}
-                        className="w-full h-full object-cover object-center rounded-full border-2 border-white shadow-xs"
-                      />
-                    </div>
-                    <div className="space-y-0.5">
-                      <h4 className="font-display font-black text-[19px] text-[#181818] uppercase tracking-tight m-0">
-                        {OFFICIAL_PRINCIPAL_INFO.name}
-                      </h4>
-                      <p className="text-[10px] sm:text-[11px] font-mono font-bold text-[#DF711B] uppercase tracking-wider">
-                        {OFFICIAL_PRINCIPAL_INFO.designation} &amp; Member of the Board
-                      </p>
-                      <p className="text-[11px] text-[#777777] font-sans">
-                        Chinmaya Vidyalaya • Affiliation No: 1130058 (Code: 30040)
-                      </p>
-                    </div>
-                    <div className="pt-2 border-t border-[#E7E2D8] space-y-0.5 text-[11px] font-mono text-[#555555]">
-                      <div>Email: <a href="mailto:cv.principal@chinmayamission.com" className="text-[#DF711B] hover:underline font-bold">cv.principal@chinmayamission.com</a></div>
-                    </div>
-                  </div>
-                </div>
-                <div className="p-3 bg-[#DF711B] text-white text-center mt-2.5 space-y-0.5 shadow-sm">
-                  <h3 className="font-display font-black text-[15px] text-white uppercase tracking-wider m-0">
-                    {OFFICIAL_PRINCIPAL_INFO.name}
-                  </h3>
-                  <p className="text-[10px] text-[#FFF7DF] font-mono uppercase tracking-widest">
-                    Educationist &amp; Institutional Leader
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Principal Message & Honors */}
-            <div className="lg:col-span-7 space-y-5 editorial-reveal">
-              <div className="space-y-1.5">
-                <span className="block text-[10px] sm:text-[11px] font-mono uppercase tracking-[0.25em] text-[#DF711B] font-bold">
-                  LEADERSHIP &amp; DISTINCTION • PRINCIPAL'S DESK
-                </span>
-                <h2 className="font-display text-[26px] sm:text-[36px] lg:text-[42px] font-black text-[#181818] tracking-tight leading-[1.04] uppercase m-0">
-                  GUIDED BY VISIONARY LEADERSHIP
-                </h2>
-              </div>
-
-              <blockquote className="font-serif italic text-base sm:text-lg text-[#181C20] leading-relaxed border-l-4 border-[#DF711B] pl-4 bg-[#FAF8F4] py-3.5 pr-4 rounded-r-xl m-0">
-                “{OFFICIAL_PRINCIPAL_INFO.message}”
-              </blockquote>
-
-              <div className="pt-1 flex items-center gap-4">
-                <Link
-                  to="/about/management"
-                  className="inline-flex items-center gap-1.5 px-4 py-2.5 bg-[#181818] hover:bg-[#DF711B] text-[#FFFFFF] font-sans font-bold text-[10px] sm:text-[11px] uppercase tracking-wider transition-colors select-none"
-                >
-                  <span className="text-[#FFB740] font-bold text-xs">›</span>
-                  <span>BOARD OF MANAGEMENT</span>
-                </Link>
-              </div>
-            </div>
-
-          </div>
-        </div>
       </section>
 
       {/* ----------------------------------------------------

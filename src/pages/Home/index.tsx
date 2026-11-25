@@ -593,8 +593,8 @@ export const HomePage: React.FC = () => {
       <section className="py-14 sm:py-20 md:py-28 bg-gradient-to-br from-[#0B1D30] via-[#122842] to-[#0B1D30] text-white relative overflow-hidden shadow-2xl border-b border-white/10">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 text-center space-y-5 sm:space-y-7 relative z-10">
           
-          <div className="inline-flex items-center gap-2 bg-[#FFB740]/15 px-3.5 py-1.5 text-[10px] sm:text-[11px] font-mono tracking-widest text-[#FFB740] uppercase font-bold border border-[#FFB740]/35 rounded-full">
-            <GraduationCap className="w-4 h-4" />
+          <div className="inline-flex items-center gap-1.5 sm:gap-2 bg-[#FFB740]/15 px-2.5 sm:px-3.5 py-1.5 text-[8.5px] xs:text-[9.5px] sm:text-[11px] font-mono tracking-normal sm:tracking-widest text-[#FFB740] uppercase font-bold border border-[#FFB740]/35 rounded-full whitespace-nowrap max-w-full">
+            <GraduationCap className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
             <span>SESSION 2027-28 ADMISSIONS OPEN (NURSERY TO CLASS 11)</span>
           </div>
 

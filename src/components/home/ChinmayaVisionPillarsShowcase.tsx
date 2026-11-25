@@ -189,12 +189,12 @@ export const ChinmayaVisionPillarsShowcase: React.FC = () => {
         {/* ------------------------------------------------------------------
             MASTER 3-COLUMN EDITORIAL SHOWCASE (EXACT CVTARAPUR.COM DESIGN)
             ------------------------------------------------------------------ */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start lg:min-h-[520px]">
           
           {/* ================================================================
               LEFT COLUMN: FOUNDATIONAL PILLAR TITLE + NAVIGATION CONTROLS
               ================================================================ */}
-          <div className="lg:col-span-3 flex flex-col justify-center items-start space-y-6">
+          <div className="lg:col-span-3 flex flex-col justify-start items-start space-y-6 lg:pt-4">
             <AnimatePresence mode="wait">
               <motion.div
                 key={current.num}
@@ -202,7 +202,7 @@ export const ChinmayaVisionPillarsShowcase: React.FC = () => {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: 16 }}
                 transition={{ duration: 0.28, ease: 'easeOut' }}
-                className="space-y-1 w-full"
+                className="space-y-1 w-full min-h-[148px] sm:min-h-[156px] lg:min-h-[165px]"
               >
                 <p
                   style={{ color: 'var(--color-text)' }}
@@ -252,7 +252,7 @@ export const ChinmayaVisionPillarsShowcase: React.FC = () => {
           {/* ================================================================
               CENTER COLUMN: SINGLE AUTHORITATIVE PILLAR IMAGE
               ================================================================ */}
-          <div className="lg:col-span-5 flex justify-center items-center">
+          <div className="lg:col-span-5 flex justify-center items-start lg:pt-4">
             <div className="relative w-full max-w-[500px] xl:max-w-[540px]">
               <AnimatePresence mode="wait">
                 <motion.div
@@ -286,7 +286,7 @@ export const ChinmayaVisionPillarsShowcase: React.FC = () => {
           {/* ================================================================
               RIGHT COLUMN: EXPLANATION, GUIDING VISION, KEY POINTS, AND CTA
               ================================================================ */}
-          <div className="lg:col-span-4 flex flex-col justify-center space-y-5">
+          <div className="lg:col-span-4 flex flex-col justify-start space-y-5">
             <AnimatePresence mode="wait">
               <motion.div
                 key={current.num}

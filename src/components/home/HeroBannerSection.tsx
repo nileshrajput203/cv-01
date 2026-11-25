@@ -12,22 +12,10 @@ interface HeroSlide {
 
 const HERO_SLIDES: HeroSlide[] = [
   {
-    id: 'champions',
-    image: '/images/banner-8.webp?v=2',
-    fallback: '/images/banner-8.jpg',
-    alt: 'Chinmaya Vidyalaya Tarapur Sports & Athletics',
-  },
-  {
     id: 'campus',
     image: '/images/banner-1.webp?v=2',
     fallback: '/images/banner-1.jpg',
     alt: 'Chinmaya Vidyalaya Tarapur Campus',
-  },
-  {
-    id: 'academics',
-    image: '/images/banner-9.webp?v=2',
-    fallback: '/images/banner-9.jpg',
-    alt: 'Chinmaya Vidyalaya Tarapur Cultural & Academic Excellence',
   },
 ];
 
@@ -67,7 +55,7 @@ export const HeroBannerSection: React.FC = () => {
 
   // Auto-advance carousel
   useEffect(() => {
-    if (isPaused) return;
+    if (isPaused || HERO_SLIDES.length <= 1) return;
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % HERO_SLIDES.length);
     }, 5500);
@@ -185,13 +173,13 @@ export const HeroBannerSection: React.FC = () => {
       </div>
 
       {/* Main Content Container */}
-      <div className="relative z-10 w-full px-4 sm:px-14 lg:pl-14 lg:pr-16 py-10 sm:py-14 lg:py-16 min-h-[520px] lg:min-h-[580px] flex flex-col lg:flex-row items-center justify-end gap-8 lg:gap-10">
+      <div className="relative z-10 w-full px-4 sm:px-14 lg:pl-14 lg:pr-16 py-6 sm:py-8 lg:py-10 min-h-[400px] lg:min-h-[440px] flex flex-col lg:flex-row items-center justify-end gap-6 lg:gap-8">
 
         {/* Right Side: Admissions Open Inquiry Card */}
-        <div className="w-full max-w-[440px] lg:w-[410px] xl:w-[430px] shrink-0">
-          <div className="bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl border border-white/50 p-5 sm:p-6 text-[#181C20]">
+        <div className="w-full max-w-[440px] lg:w-[400px] xl:w-[420px] shrink-0">
+          <div className="bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl border border-white/50 p-4 sm:p-5 text-[#181C20]">
             {/* Card Header */}
-            <div className="flex items-center justify-between gap-2 pb-3.5 mb-4 border-b border-slate-200">
+            <div className="flex items-center justify-between gap-2 pb-2.5 mb-3 border-b border-slate-200">
               <h2 className="font-display font-extrabold text-base sm:text-lg text-[#181C20] m-0">
                 Admissions Open for
               </h2>
@@ -332,40 +320,44 @@ export const HeroBannerSection: React.FC = () => {
         </div>
       </div>
 
-      {/* Carousel Controls: Prev/Next Arrows & Bottom Pagination Dots */}
-      <button
-        type="button"
-        onClick={handlePrev}
-        aria-label="Previous slide"
-        className="hidden sm:flex absolute left-3 top-1/2 -translate-y-1/2 z-20 w-9 h-9 rounded-full bg-black/45 hover:bg-[#DF711B] text-white items-center justify-center border border-white/20 backdrop-blur-sm transition-colors cursor-pointer"
-      >
-        <ChevronLeft className="w-5 h-5" />
-      </button>
-
-      <button
-        type="button"
-        onClick={handleNext}
-        aria-label="Next slide"
-        className="hidden sm:flex absolute right-3 top-1/2 -translate-y-1/2 z-20 w-9 h-9 rounded-full bg-black/45 hover:bg-[#DF711B] text-white items-center justify-center border border-white/20 backdrop-blur-sm transition-colors cursor-pointer"
-      >
-        <ChevronRight className="w-5 h-5" />
-      </button>
-
-      <div className="relative z-20 pb-4 flex items-center justify-center gap-2">
-        {HERO_SLIDES.map((slide, idx) => (
+      {/* Carousel Controls: Prev/Next Arrows & Bottom Pagination Dots (only when multiple slides) */}
+      {HERO_SLIDES.length > 1 && (
+        <>
           <button
-            key={slide.id}
             type="button"
-            onClick={() => setCurrentSlide(idx)}
-            aria-label={`Go to slide ${idx + 1}`}
-            className={`h-2.5 rounded-full transition-all cursor-pointer ${
-              idx === currentSlide
-                ? 'w-7 bg-[#DF711B]'
-                : 'w-2.5 bg-white/50 hover:bg-white/80'
-            }`}
-          />
-        ))}
-      </div>
+            onClick={handlePrev}
+            aria-label="Previous slide"
+            className="hidden sm:flex absolute left-3 top-1/2 -translate-y-1/2 z-20 w-9 h-9 rounded-full bg-black/45 hover:bg-[#DF711B] text-white items-center justify-center border border-white/20 backdrop-blur-sm transition-colors cursor-pointer"
+          >
+            <ChevronLeft className="w-5 h-5" />
+          </button>
+
+          <button
+            type="button"
+            onClick={handleNext}
+            aria-label="Next slide"
+            className="hidden sm:flex absolute right-3 top-1/2 -translate-y-1/2 z-20 w-9 h-9 rounded-full bg-black/45 hover:bg-[#DF711B] text-white items-center justify-center border border-white/20 backdrop-blur-sm transition-colors cursor-pointer"
+          >
+            <ChevronRight className="w-5 h-5" />
+          </button>
+
+          <div className="relative z-20 pb-4 flex items-center justify-center gap-2">
+            {HERO_SLIDES.map((slide, idx) => (
+              <button
+                key={slide.id}
+                type="button"
+                onClick={() => setCurrentSlide(idx)}
+                aria-label={`Go to slide ${idx + 1}`}
+                className={`h-2.5 rounded-full transition-all cursor-pointer ${
+                  idx === currentSlide
+                    ? 'w-7 bg-[#DF711B]'
+                    : 'w-2.5 bg-white/50 hover:bg-white/80'
+                }`}
+              />
+            ))}
+          </div>
+        </>
+      )}
     </section>
   );
 };

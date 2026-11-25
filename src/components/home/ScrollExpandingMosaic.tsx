@@ -65,7 +65,7 @@ export const ScrollExpandingMosaic: React.FC = () => {
           ------------------------------------------------------------------ */}
       <div
         ref={containerRef}
-        className="hidden md:block relative w-full h-[220vh]"
+        className="hidden md:block relative w-full h-[155vh]"
       >
         <div className="sticky top-0 h-screen w-full overflow-hidden flex flex-col justify-center items-center px-[3%] pt-4 pb-6 box-border">
           
@@ -154,9 +154,9 @@ export const ScrollExpandingMosaic: React.FC = () => {
                   poster={CAMPUS_VIDEO.poster}
                   muted
                   playsInline
-                  autoPlay={!shouldReduceMotion}
+                  autoPlay={false}
                   loop
-                  preload="metadata"
+                  preload="none"
                   disablePictureInPicture
                   disableRemotePlayback
                   controlsList="nodownload nofullscreen noremoteplayback"

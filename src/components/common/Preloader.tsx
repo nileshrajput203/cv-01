@@ -30,36 +30,36 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
       });
 
       tl.from(logoRef.current, {
-        y: 40,
+        y: 20,
         opacity: 0,
-        duration: 0.9,
+        duration: 0.35,
         ease: 'power3.out'
       })
       .from(quoteRef.current, {
-        y: 20,
+        y: 10,
         opacity: 0,
-        duration: 0.8,
+        duration: 0.3,
         ease: 'power3.out'
-      }, '-=0.5')
+      }, '-=0.2')
       .to(counterObj, {
         val: 100,
-        duration: 1.5,
+        duration: 0.45,
         ease: 'power2.inOut',
         onUpdate: () => {
           setPercent(Math.round(counterObj.val));
         }
-      }, '-=0.3')
+      }, '-=0.15')
       .to(progressBarRef.current, {
         scaleX: 1,
-        duration: 1.5,
+        duration: 0.45,
         ease: 'power2.inOut',
         transformOrigin: 'left'
       }, '<')
       .to(containerRef.current, {
         clipPath: 'polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)',
-        duration: 1.1,
+        duration: 0.4,
         ease: 'power4.inOut',
-        delay: 0.1
+        delay: 0.05
       });
     }, containerRef);
 

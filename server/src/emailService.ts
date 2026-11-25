@@ -92,13 +92,28 @@ export function getRecordedSubmissions(): any[] {
   return [];
 }
 
+const PLACEHOLDER_SMTP_VALUES = new Set([
+  'your_email@gmail.com',
+  'your_16_char_app_password',
+]);
+
+/**
+ * Check whether valid (non-placeholder) SMTP credentials are configured
+ */
+export function hasConfiguredSmtp(): boolean {
+  const user = process.env.SMTP_USER?.trim().replace(/^["']|["']$/g, '') || '';
+  const pass = process.env.SMTP_PASS?.trim().replace(/^["']|["']$/g, '') || '';
+  if (!user || !pass) return false;
+  return !PLACEHOLDER_SMTP_VALUES.has(user) && !PLACEHOLDER_SMTP_VALUES.has(pass);
+}
+
 /**
  * Get configured SMTP Transporter if credentials exist
  */
 function getSmtpTransporter() {
-  const user = process.env.SMTP_USER?.trim().replace(/^["']|["']$/g, '');
-  const pass = process.env.SMTP_PASS?.trim().replace(/^["']|["']$/g, '');
-  if (!user || !pass) return null;
+  if (!hasConfiguredSmtp()) return null;
+  const user = process.env.SMTP_USER!.trim().replace(/^["']|["']$/g, '');
+  const pass = process.env.SMTP_PASS!.trim().replace(/^["']|["']$/g, '');
 
   const isGmail = user.includes('@gmail.com');
   const host = process.env.SMTP_HOST?.trim().replace(/^["']|["']$/g, '') || (isGmail ? 'smtp.gmail.com' : undefined);

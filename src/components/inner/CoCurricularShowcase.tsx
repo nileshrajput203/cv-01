@@ -1,6 +1,5 @@
 import React from 'react';
 import { InfiniteLoopGallery, type InfiniteGalleryItem } from '../ui/infinite-loop-gallery';
-import { Sparkles } from 'lucide-react';
 
 /* ────────────────────────────────────────────────────────
    Activity List Data - Official, Relevant Standard Emojis
@@ -29,9 +28,17 @@ const ACTIVITIES: Activity[] = [
   { name: 'Health & Nutrition', emoji: '🥗', color: '#16A34A', bgColor: 'bg-green-50' },
   { name: 'Yoga & Wellness', emoji: '🧘', color: '#059669', bgColor: 'bg-emerald-50' },
   { name: 'Quiz & Debates', emoji: '💡', color: '#7C3AED', bgColor: 'bg-violet-50' },
+];
+
+const UPCOMING_PROGRAMMES: Activity[] = [
+  { name: 'Basketball', emoji: '🏀', color: '#EA580C', bgColor: 'bg-orange-50', isComingSoon: true },
   { name: 'Archery', emoji: '🏹', color: '#B45309', bgColor: 'bg-amber-50', isComingSoon: true },
   { name: 'Skating', emoji: '🛼', color: '#2563EB', bgColor: 'bg-blue-50', isComingSoon: true },
+  { name: 'Swimming', emoji: '🏊', color: '#0891B2', bgColor: 'bg-cyan-50', isComingSoon: true },
   { name: 'Horse Riding', emoji: '🏇', color: '#7C3AED', bgColor: 'bg-purple-50', isComingSoon: true },
+  { name: 'Football', emoji: '⚽', color: '#16A34A', bgColor: 'bg-green-50', isComingSoon: true },
+  { name: 'Cricket', emoji: '🏏', color: '#DC2626', bgColor: 'bg-red-50', isComingSoon: true },
+  { name: 'Music', emoji: '🎵', color: '#3B82F6', bgColor: 'bg-blue-50', isComingSoon: true },
 ];
 
 /* ────────────────────────────────────────────────────────
@@ -204,6 +211,37 @@ const row2GalleryImages: InfiniteGalleryItem[] = ALL_CO_CURRICULAR_PHOTOS.slice(
    Main Co-Curricular Showcase Component
    ──────────────────────────────────────────────────────── */
 
+const renderActivityCard = (activity: Activity, idx: number) => (
+  <div
+    key={activity.name}
+    className={`${activity.bgColor} relative border border-[#E7E2D8] rounded-2xl p-4 sm:p-5 hover:border-[#DF711B]/40 hover:shadow-md transition-all duration-200 cursor-default select-none`}
+  >
+    {/* Floating Badge (Coming Soon or Index) */}
+    {activity.isComingSoon ? (
+      <span className="absolute top-2.5 right-2.5 px-2 py-0.5 rounded-full bg-[#DF711B] text-white text-[8px] font-mono font-bold uppercase tracking-wider shadow-sm">
+        Coming Soon
+      </span>
+    ) : (
+      <span className="absolute top-2.5 right-2.5 text-[10px] font-mono font-bold text-slate-300">
+        {String(idx + 1).padStart(2, '0')}
+      </span>
+    )}
+
+    {/* Official Standard Emoji */}
+    <div
+      className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center mb-3 shadow-sm text-2xl sm:text-3xl select-none"
+      style={{ backgroundColor: activity.color + '18' }}
+    >
+      <span role="img" aria-label={activity.name}>{activity.emoji}</span>
+    </div>
+
+    {/* Activity Name */}
+    <h4 className="font-cinzel font-bold text-sm sm:text-base text-[#181C20] leading-tight">
+      {activity.name}
+    </h4>
+  </div>
+);
+
 export const CoCurricularShowcase: React.FC = () => {
   return (
     <div className="space-y-16">
@@ -218,58 +256,34 @@ export const CoCurricularShowcase: React.FC = () => {
             Co-Curricular Programmes
           </h2>
           <p className="text-sm sm:text-base text-slate-600 max-w-2xl mx-auto leading-relaxed font-normal">
-            From performing arts to competitive athletics, literary societies to student governance — discover the 17 multidisciplinary programmes nurturing every child at Chinmaya Vidyalaya Tarapur.
+            From performing arts to competitive athletics, literary societies to student governance — discover the multidisciplinary programmes nurturing every child at Chinmaya Vidyalaya Tarapur.
           </p>
         </div>
 
         {/* Interactive Activity Cards Grid */}
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4">
-          {ACTIVITIES.map((activity, idx) => (
-            <div
-              key={activity.name}
-              className={`${activity.bgColor} relative border border-[#E7E2D8] rounded-2xl p-4 sm:p-5 hover:border-[#DF711B]/40 hover:shadow-md transition-all duration-200 cursor-default select-none`}
-            >
-              {/* Floating Badge (Coming Soon or Index) */}
-              {activity.isComingSoon ? (
-                <span className="absolute top-2 right-2 px-2 py-0.5 rounded-full bg-[#DF711B] text-white text-[8px] font-mono font-bold uppercase tracking-wider shadow-2xs">
-                  Coming Soon
-                </span>
-              ) : (
-                <span className="absolute top-2 right-2 text-[10px] font-mono font-bold text-slate-300">
-                  {String(idx + 1).padStart(2, '0')}
-                </span>
-              )}
+          {ACTIVITIES.map((activity, idx) => renderActivityCard(activity, idx))}
+        </div>
 
-              {/* Official Standard Emoji */}
-              <div
-                className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center mb-3 shadow-xs text-2xl sm:text-3xl select-none"
-                style={{ backgroundColor: activity.color + '18' }}
-              >
-                <span role="img" aria-label={activity.name}>{activity.emoji}</span>
-              </div>
-
-              {/* Activity Name */}
-              <h4 className="font-cinzel font-bold text-sm sm:text-base text-[#181C20] leading-tight">
-                {activity.name}
-              </h4>
-
-              {activity.isComingSoon && (
-                <span className="text-[10px] font-mono font-bold text-[#DF711B] uppercase tracking-wider block mt-1.5">
-                  Coming Soon
-                </span>
-              )}
-            </div>
-          ))}
+        {/* Upcoming Co-Curricular Programmes */}
+        <div className="pt-8 space-y-5">
+          <div className="space-y-1.5 text-center">
+            <span className="block text-[11px] font-mono uppercase tracking-[0.25em] text-[#DF711B] font-bold">
+              EXPANDING CAMPUS HORIZONS • NEW FACILITIES
+            </span>
+            <h3 className="font-cinzel text-xl sm:text-3xl font-extrabold text-[#181C20]">
+              Upcoming Co-Curricular Programmes
+            </h3>
+          </div>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
+            {UPCOMING_PROGRAMMES.map((activity, idx) => renderActivityCard(activity, idx))}
+          </div>
         </div>
       </div>
 
       {/* ─── SECTION 2: Infinite Loop Panoramic Stream (End-to-End, All 19 Photos) ─── */}
       <div className="space-y-4">
         <div className="text-center space-y-1">
-          <span className="inline-flex items-center gap-1.5 text-xs font-mono font-bold uppercase tracking-widest text-[#DF711B]">
-            <Sparkles className="w-3.5 h-3.5" />
-            <span>CONTINUOUS PANORAMIC STREAM • REAL CAMPUS EVIDENCE</span>
-          </span>
           <h3 className="text-xl sm:text-2xl font-cinzel font-bold text-[#181C20]">
             Live Glimpses of Co-Curricular Life
           </h3>

@@ -24,12 +24,10 @@ export const SmoothScrollProvider: React.FC<{ children: React.ReactNode }> = ({ 
     }
 
     const lenis = new Lenis({
-      duration: 0.55,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      duration: 0.2,
       orientation: 'vertical',
       gestureOrientation: 'vertical',
-      smoothWheel: true,
-      wheelMultiplier: 1.15,
+      smoothWheel: false, // Direct native 1:1 hardware wheel response to eliminate floaty input lag
       syncTouch: false,
     });
 
@@ -42,8 +40,7 @@ export const SmoothScrollProvider: React.FC<{ children: React.ReactNode }> = ({ 
     };
 
     gsap.ticker.add(updateTicker);
-    // Smooth out any frame hitches instead of jarring jumps
-    gsap.ticker.lagSmoothing(500, 33);
+    gsap.ticker.lagSmoothing(0); // Disable lag smoothing delay to prevent stuttering
 
     return () => {
       gsap.ticker.remove(updateTicker);

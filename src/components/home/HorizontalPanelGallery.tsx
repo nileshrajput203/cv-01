@@ -1,6 +1,4 @@
-import React, { useEffect, useRef } from 'react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import React from 'react';
 import { OFFICIAL_SCHOOL_INFO } from '../../data/school';
 import { 
   HOME_VALUES_TILES, 
@@ -8,85 +6,14 @@ import {
   PANEL_B_MOVING_GALLERY_COL2 
 } from '../../data/images';
 
-gsap.registerPlugin(ScrollTrigger);
-
 export const HorizontalPanelGallery: React.FC = () => {
-  const pinWrapRef = useRef<HTMLDivElement>(null);
-  const pinSpacerRef = useRef<HTMLDivElement>(null);
-  const trackRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    // Only enable scroll-jacked horizontal hijack on desktops / tablets (>= 992px)
-    const mm = gsap.matchMedia();
-
-    mm.add('(min-width: 992px)', () => {
-      const track = trackRef.current;
-      const pinWrap = pinWrapRef.current;
-      const pinSpacer = pinSpacerRef.current;
-
-      if (!track || !pinWrap || !pinSpacer) return;
-
-      const getScrollDistance = () => track.scrollWidth - window.innerWidth;
-
-      const tween = gsap.to(track, {
-        x: () => -getScrollDistance(),
-        ease: 'none',
-        scrollTrigger: {
-          trigger: pinWrap,
-          start: 'top top',
-          end: () => '+=' + getScrollDistance(),
-          scrub: 0.3,
-          pin: pinSpacer,
-          invalidateOnRefresh: true,
-          anticipatePin: 1,
-        },
-      });
-
-      return () => {
-        tween.scrollTrigger?.kill();
-        tween.kill();
-      };
-    });
-
-    return () => mm.revert();
-  }, []);
-
-  const slideNext = () => {
-    window.scrollBy({ top: window.innerHeight * 0.85, behavior: 'smooth' });
-  };
-
   const valuesData = HOME_VALUES_TILES;
   const col1Photos = PANEL_B_MOVING_GALLERY_COL1;
   const col2Photos = PANEL_B_MOVING_GALLERY_COL2;
 
   return (
-    <div 
-      ref={pinWrapRef} 
-      className="pin-wrap relative w-full bg-[#FFFFFF]"
-      style={{
-        // Desktop height provides scroll runway for horizontal panels
-      }}
-    >
+    <div className="relative w-full bg-[#FFFFFF]">
       <style>{`
-        .font-pencil {
-          font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
-          font-weight: 700;
-          font-style: italic;
-        }
-        @keyframes pencilBounce {
-          0%, 100% { transform: translateY(0) rotate(-0.5deg); }
-          50% { transform: translateY(-3px) rotate(0.8deg); }
-        }
-        .animate-pencil-hint {
-          animation: pencilBounce 3s ease-in-out infinite;
-        }
-        @keyframes wiggleArrow {
-          0%, 100% { transform: translateX(0); }
-          50% { transform: translateX(5px); }
-        }
-        .animate-wiggle-arrow {
-          animation: wiggleArrow 1.5s ease-in-out infinite;
-        }
         @keyframes marqueeUp {
           0% { transform: translateY(0%); }
           100% { transform: translateY(-50%); }
@@ -102,19 +29,13 @@ export const HorizontalPanelGallery: React.FC = () => {
         }
       `}</style>
 
-      <div 
-        ref={pinSpacerRef} 
-        className="pin-spacer w-full overflow-hidden lg:h-screen lg:sticky lg:top-0"
-      >
-        <div 
-          ref={trackRef} 
-          className="track flex flex-col lg:flex-row flex-nowrap w-full lg:w-[200vw] will-change-transform"
-        >
+      <div className="w-full overflow-hidden">
+        <div className="flex flex-col w-full">
           {/* ============================================================
-              PANEL A -"START STATE" (WE VALUE GRID)
+              PANEL A - "WE VALUE" GRID
               ============================================================ */}
-          <section className="panel panel--values w-full lg:w-screen lg:h-screen shrink-0 bg-[#FFFFFF] flex flex-col justify-center px-[6%] lg:px-[8%] py-10 sm:py-14 lg:py-10 border-b lg:border-b-0 lg:border-r border-[#E5E5E5] box-border relative">
-            {/* Top-left Big Headline & Hand-Drawn Pencil Scroll Cue */}
+          <section className="panel panel--values w-full bg-[#FFFFFF] flex flex-col justify-center px-[6%] lg:px-[8%] py-10 sm:py-12 lg:py-14 border-b border-[#E5E5E5] box-border relative">
+            {/* Top-left Big Headline */}
             <div className="mb-6 lg:mb-8 shrink-0 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
               <div>
                 <span className="block text-[11px] font-mono uppercase tracking-[0.25em] text-[#DF711B] font-bold mb-2">
@@ -123,36 +44,6 @@ export const HorizontalPanelGallery: React.FC = () => {
                 <h2 className="font-display text-[32px] xs:text-[40px] sm:text-[54px] lg:text-[60px] xl:text-[64px] font-black text-[#181818] tracking-tight leading-none uppercase m-0">
                   WE VALUE
                 </h2>
-              </div>
-
-              {/* Hand-Drawn Pencil "Scroll to View" Callout */}
-              <div
-                onClick={slideNext}
-                className="hidden lg:flex items-center gap-3.5 bg-white hover:bg-slate-50 border-2 border-dashed border-[#DF711B]/40 hover:border-[#DF711B] px-5 py-2.5 rounded-2xl shadow-xs transition-all duration-300 animate-pencil-hint select-none cursor-pointer group"
-                title="Scroll down with mouse/trackpad to slide through panels (or click here)"
-              >
-                {/* Hand-drawn pencil sketch icon */}
-                <div className="w-8 h-8 rounded-full bg-[#FAF3E8] border border-[#DF711B]/50 flex items-center justify-center text-[#DF711B] shrink-0 group-hover:rotate-12 transition-transform shadow-2xs">
-                  <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z" />
-                  </svg>
-                </div>
-
-                <div className="flex flex-col">
-                  <div className="flex items-center gap-1.5 font-pencil text-2xl xl:text-3xl text-[#0B1D30] group-hover:text-[#DF711B] font-bold leading-none tracking-wide transition-colors">
-                    <span>scroll to view</span>
-                    <span className="text-[#DF711B] animate-wiggle-arrow">➔</span>
-                  </div>
-                  <span className="text-[10px] font-mono text-[#777777] uppercase tracking-wider mt-1 font-semibold">
-                    (slides sideways through panels)
-                  </span>
-                </div>
-
-                {/* Hand-drawn curvy pencil sketch arrow */}
-                <svg className="w-12 h-6 text-[#DF711B] group-hover:translate-x-1.5 transition-transform" viewBox="0 0 80 30" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M 5 18 Q 38 4, 68 15" strokeDasharray="3 2" />
-                  <path d="M 58 7 L 72 15 L 60 23" />
-                </svg>
               </div>
             </div>
 
@@ -203,7 +94,7 @@ export const HorizontalPanelGallery: React.FC = () => {
           {/* ============================================================
               PANEL B -"END STATE" (ACHIEVEMENT + VERTICAL MOVING GALLERY)
               ============================================================ */}
-          <section className="panel panel--award w-full lg:w-screen lg:h-screen shrink-0 bg-[#FFFFFF] flex flex-col lg:flex-row items-stretch border-b lg:border-b-0 box-border relative overflow-hidden">
+          <section className="panel panel--award w-full lg:h-[580px] xl:h-[620px] bg-[#FFFFFF] flex flex-col lg:flex-row items-stretch border-b border-[#E5E5E5] box-border relative overflow-hidden">
             
             {/* ZONE A - LEFT (~26% width): Studio Backdrop & Cutout Composite Image */}
             <div className="w-full h-[340px] sm:h-[440px] lg:h-full lg:w-[26%] xl:w-[25%] relative flex items-center justify-center overflow-hidden shrink-0 border-b lg:border-b-0 lg:border-r border-[#E5E5E5] bg-white">

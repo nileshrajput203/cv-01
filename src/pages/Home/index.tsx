@@ -17,7 +17,9 @@ import { NoticeEventBoard } from '../../components/home/NoticeEventBoard';
 import { ScrollExpandingMosaic } from '../../components/home/ScrollExpandingMosaic';
 
 import { ChinmayaVisionPillarsShowcase } from '../../components/home/ChinmayaVisionPillarsShowcase';
+import { HeroBannerSection } from '../../components/home/HeroBannerSection';
 import { HeroVideoSection } from '../../components/home/HeroVideoSection';
+import { MissionVisionBulletinSection } from '../../components/home/MissionVisionBulletinSection';
 import { BannerCarousel } from '../../components/home/BannerCarousel';
 import { useBodyScrollLock } from '../../hooks/useBodyScrollLock';
 
@@ -56,6 +58,17 @@ export const HomePage: React.FC = () => {
   const [selectedGalleryImg, setSelectedGalleryImg] = useState<string | null>(null);
   const [isAdmissionDrawerOpen, setIsAdmissionDrawerOpen] = useState<boolean>(false);
   const [activeQuote, setActiveQuote] = useState<number>(0);
+  const [isDesktop, setIsDesktop] = useState<boolean>(() =>
+    typeof window !== 'undefined' ? window.innerWidth >= 1024 : true
+  );
+
+  useEffect(() => {
+    const mq = window.matchMedia('(min-width: 1024px)');
+    const update = () => setIsDesktop(mq.matches);
+    update();
+    mq.addEventListener('change', update);
+    return () => mq.removeEventListener('change', update);
+  }, []);
 
   // Lock body/Lenis scrolling when enlarged gallery image is active
   useBodyScrollLock(!!selectedGalleryImg);
@@ -103,10 +116,14 @@ export const HomePage: React.FC = () => {
     <div ref={homeWrapperRef} className="bg-white text-[#181C20] overflow-x-clip selection:bg-[#DF711B] selection:text-white font-sans">
       
       {/* ----------------------------------------------------
-          SECTION 01 - HERO VIDEO SECTION
-          Full-viewport cinematic video
+          SECTION 01 - HERO SECTION (DESKTOP BANNER / MOBILE VIDEO)
          ---------------------------------------------------- */}
-      <HeroVideoSection />
+      {isDesktop ? <HeroBannerSection /> : <HeroVideoSection />}
+
+      {/* ----------------------------------------------------
+          SECTION 01.5 - VISION, MISSION & UPCOMING EVENTS BULLETIN
+         ---------------------------------------------------- */}
+      <MissionVisionBulletinSection />
 
       {/* ----------------------------------------------------
           SECTION 02 - SCROLL-JACKED HORIZONTAL PANEL GALLERY
@@ -122,14 +139,14 @@ export const HomePage: React.FC = () => {
       <BannerCarousel />
 
       {/* ----------------------------------------------------
-          SECTION 2.6 - GRAND MATRU PITRU PUJAN CEREMONY BANNER (BANNER 2)
+          SECTION 2.6 - BANNER 2
          ---------------------------------------------------- */}
-      <section className="w-full bg-white relative overflow-hidden" aria-label="Grand Matru Pitru Pujan Ceremony Banner - 06 December 2026">
+      <section className="w-full bg-white relative overflow-hidden" aria-label="Chinmaya Vidyalaya Tarapur Banner 2">
         <picture>
-          <source srcSet="/matru_pitru_pujan_banner.webp?v=20261206_final" type="image/webp" />
+          <source srcSet="/banner-2.webp?v=1" type="image/webp" />
           <img 
-            src="/matru_pitru_pujan_banner.png?v=20261206_final" 
-            alt="Chinmaya Vidyalaya Tarapur Grand Matru Pitru Pujan - 06 December 2026 in presence of Pujya Swami Anukoolananda ji" 
+            src="/banner-2.png?v=1" 
+            alt="Chinmaya Vidyalaya Tarapur Promotional Banner" 
             loading="lazy"
             decoding="async"
             className="w-full h-auto object-contain block"
@@ -140,15 +157,15 @@ export const HomePage: React.FC = () => {
       {/* ----------------------------------------------------
           SECTION 03 - PRINCIPAL LEADERSHIP & DISTINCTION SPOTLIGHT
          ---------------------------------------------------- */}
-      <section className="py-10 sm:py-14 lg:py-8 lg:h-screen flex items-center bg-white overflow-hidden">
+      <section className="py-10 sm:py-12 lg:py-14 bg-white overflow-hidden">
         <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
             
             {/* Principal Photo */}
             <div className="lg:col-span-5 relative editorial-reveal">
               <div className="bg-white p-2.5 border border-slate-200 shadow-sm">
-                <div className="border border-slate-200 bg-white flex items-center justify-center min-h-[280px]">
-                  <div className="p-5 text-center space-y-3">
+                <div className="border border-slate-200 bg-white flex items-center justify-center py-6 px-5">
+                  <div className="text-center space-y-3">
                     {/* Official Photograph of Principal Mam */}
                     <div className="relative w-32 h-32 sm:w-36 sm:h-36 mx-auto rounded-full p-1 bg-gradient-to-tr from-[#DF711B] via-amber-300 to-[#DF711B] shadow-md shrink-0">
                       <img
@@ -172,7 +189,7 @@ export const HomePage: React.FC = () => {
                         {OFFICIAL_PRINCIPAL_INFO.name}
                       </h4>
                       <p className="text-[10px] sm:text-[11px] font-mono font-bold text-[#DF711B] uppercase tracking-wider">
-                        {OFFICIAL_PRINCIPAL_INFO.designation} & Member of the Board
+                        {OFFICIAL_PRINCIPAL_INFO.designation} &amp; Member of the Board
                       </p>
                       <p className="text-[11px] text-[#777777] font-sans">
                         Chinmaya Vidyalaya • Affiliation No: 1130058 (Code: 30040)
@@ -188,27 +205,31 @@ export const HomePage: React.FC = () => {
                     {OFFICIAL_PRINCIPAL_INFO.name}
                   </h3>
                   <p className="text-[10px] text-[#FFF7DF] font-mono uppercase tracking-widest">
-                    Educationist & Institutional Leader
+                    Educationist &amp; Institutional Leader
                   </p>
                 </div>
               </div>
             </div>
 
             {/* Principal Message & Honors */}
-            <div className="lg:col-span-7 space-y-4 editorial-reveal">
-              <div className="space-y-1">
+            <div className="lg:col-span-7 space-y-5 editorial-reveal">
+              <div className="space-y-1.5">
                 <span className="block text-[10px] sm:text-[11px] font-mono uppercase tracking-[0.25em] text-[#DF711B] font-bold">
-                  LEADERSHIP & DISTINCTION • PRINCIPAL'S DESK
+                  LEADERSHIP &amp; DISTINCTION • PRINCIPAL'S DESK
                 </span>
                 <h2 className="font-display text-[26px] sm:text-[36px] lg:text-[42px] font-black text-[#181818] tracking-tight leading-[1.04] uppercase m-0">
                   GUIDED BY VISIONARY LEADERSHIP
                 </h2>
               </div>
 
-              <div className="pt-2 flex items-center gap-4">
+              <blockquote className="font-serif italic text-base sm:text-lg text-[#181C20] leading-relaxed border-l-4 border-[#DF711B] pl-4 bg-[#FAF8F4] py-3.5 pr-4 rounded-r-xl m-0">
+                “{OFFICIAL_PRINCIPAL_INFO.message}”
+              </blockquote>
+
+              <div className="pt-1 flex items-center gap-4">
                 <Link
                   to="/about/management"
-                  className="inline-flex items-center gap-1.5 px-4 py-2 bg-[#181818] hover:bg-[#DF711B] text-[#FFFFFF] font-sans font-bold text-[10px] sm:text-[11px] uppercase tracking-wider transition-colors select-none"
+                  className="inline-flex items-center gap-1.5 px-4 py-2.5 bg-[#181818] hover:bg-[#DF711B] text-[#FFFFFF] font-sans font-bold text-[10px] sm:text-[11px] uppercase tracking-wider transition-colors select-none"
                 >
                   <span className="text-[#FFB740] font-bold text-xs">›</span>
                   <span>BOARD OF MANAGEMENT</span>
@@ -235,7 +256,7 @@ export const HomePage: React.FC = () => {
       {/* ----------------------------------------------------
           SECTION 05 - EXPLORE OUR LABORATORIES & SANCTUARIES
          ---------------------------------------------------- */}
-      <section className="py-14 sm:py-20 bg-white relative overflow-hidden">
+      <section className="py-10 sm:py-14 bg-white relative overflow-hidden">
         <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 sm:space-y-10">
           
           {/* Centered Section Header */}
@@ -417,7 +438,7 @@ export const HomePage: React.FC = () => {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
                 transition={{ duration: 0.5, ease: [0.32, 0.72, 0, 1] }}
-                className="bg-white text-[#181C20] p-8 md:p-12 lg:p-16 border border-slate-200 shadow-sm flex flex-col md:flex-row items-center gap-8 lg:gap-12"
+                className="bg-white text-[#181C20] p-6 sm:p-8 lg:p-10 border border-slate-200 shadow-sm flex flex-col md:flex-row items-center gap-6 lg:gap-10"
               >
                 {/* Author Image - upright with zero cut issues */}
                 <div className="w-32 h-32 sm:w-40 sm:h-40 lg:w-48 lg:h-48 rounded-lg overflow-hidden border-2 border-[#DF711B]/40 shadow-md shrink-0 bg-white p-1 flex items-center justify-center">

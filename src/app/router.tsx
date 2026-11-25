@@ -1,21 +1,23 @@
-import React from 'react';
+import React, { lazy } from 'react';
 import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom';
 import { MainLayout } from '../layouts/MainLayout';
 import { HomePage } from '../pages/Home';
-import { NotFoundPage } from '../pages/NotFound';
-import { FaqPage } from '../pages/Faq';
-import { ContentPage } from '../templates/ContentPage';
-import { DocumentListingPage } from '../templates/DocumentListingPage';
-import { NewsListingPage } from '../templates/NewsListingPage';
-import { GalleryPage } from '../templates/GalleryPage';
-import { ContactPage } from '../templates/ContactPage';
-import { CareersPage } from '../templates/CareersPage';
-import { AlumniPage } from '../templates/AlumniPage';
-import { BlogPage } from '../templates/BlogPage';
-import { RegistrationFormPage } from '../pages/Admissions/RegistrationFormPage';
-import { SchoolCalendarPage } from '../pages/Admissions/SchoolCalendarPage';
-import TimelineDemo from '../components/ui/timeline-demo';
-import IntegrationDemo from '../components/ui/demo';
+
+// Lazy-loaded secondary pages & templates for faster initial load
+const NotFoundPage = lazy(() => import('../pages/NotFound').then(m => ({ default: m.NotFoundPage })));
+const FaqPage = lazy(() => import('../pages/Faq').then(m => ({ default: m.FaqPage })));
+const ContentPage = lazy(() => import('../templates/ContentPage').then(m => ({ default: m.ContentPage })));
+const DocumentListingPage = lazy(() => import('../templates/DocumentListingPage').then(m => ({ default: m.DocumentListingPage })));
+const NewsListingPage = lazy(() => import('../templates/NewsListingPage').then(m => ({ default: m.NewsListingPage })));
+const GalleryPage = lazy(() => import('../templates/GalleryPage').then(m => ({ default: m.GalleryPage })));
+const ContactPage = lazy(() => import('../templates/ContactPage').then(m => ({ default: m.ContactPage })));
+const CareersPage = lazy(() => import('../templates/CareersPage').then(m => ({ default: m.CareersPage })));
+const AlumniPage = lazy(() => import('../templates/AlumniPage').then(m => ({ default: m.AlumniPage })));
+const BlogPage = lazy(() => import('../templates/BlogPage').then(m => ({ default: m.BlogPage })));
+const RegistrationFormPage = lazy(() => import('../pages/Admissions/RegistrationFormPage').then(m => ({ default: m.RegistrationFormPage })));
+const SchoolCalendarPage = lazy(() => import('../pages/Admissions/SchoolCalendarPage').then(m => ({ default: m.SchoolCalendarPage })));
+const TimelineDemo = lazy(() => import('../components/ui/timeline-demo'));
+const IntegrationDemo = lazy(() => import('../components/ui/demo'));
 
 import { ABOUT_SECTIONS } from '../data/about';
 import { ACADEMIC_SECTIONS } from '../data/academics';

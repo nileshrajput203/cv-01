@@ -14,6 +14,7 @@ import {
   sendCareerEmail,
   DEPARTMENT_EMAILS,
   getRecordedSubmissions,
+  hasConfiguredSmtp,
   sendEmailUnified
 } from './emailService';
 import { isRateLimited } from './rateLimit';
@@ -26,7 +27,7 @@ app.use(express.json());
 
 // Health & System Status Endpoint
 app.get('/api/health', (_req: Request, res: Response) => {
-  const hasSmtp = Boolean(process.env.SMTP_USER && process.env.SMTP_PASS);
+  const hasSmtp = hasConfiguredSmtp();
   const hasResend = Boolean(process.env.RESEND_API_KEY && process.env.RESEND_API_KEY.trim().length > 0);
 
   res.json({
@@ -269,7 +270,7 @@ app.listen(PORT, () => {
   console.log(`[Chinmaya Vidyalaya Server] Running on http://localhost:${PORT}`);
   console.log(`[Department Inboxes] Admissions: ${DEPARTMENT_EMAILS.admissions} | Alumni: ${DEPARTMENT_EMAILS.alumni} | Careers: ${DEPARTMENT_EMAILS.careers} | General: ${DEPARTMENT_EMAILS.general}`);
   
-  if (process.env.SMTP_USER && process.env.SMTP_PASS) {
+  if (hasConfiguredSmtp()) {
     console.log(`[Email Service] SMTP is configured (User: ${process.env.SMTP_USER})`);
   } else if (process.env.RESEND_API_KEY) {
     console.log('[Email Service] Resend integration is ACTIVE');

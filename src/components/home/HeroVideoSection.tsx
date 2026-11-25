@@ -66,7 +66,7 @@ export const HeroVideoSection: React.FC = () => {
         loop
         muted
         playsInline
-        preload="auto"
+        preload="metadata"
         poster="/videos/hero-poster.webp"
         disablePictureInPicture
         disableRemotePlayback
@@ -74,7 +74,6 @@ export const HeroVideoSection: React.FC = () => {
         className="w-full h-full object-cover object-center block pointer-events-none"
       >
         <source src="/videos/hero-video.mp4" type="video/mp4" />
-        <source src="/videos/hero-scrolly-video.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
 

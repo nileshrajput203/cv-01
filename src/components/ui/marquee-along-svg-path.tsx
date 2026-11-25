@@ -243,10 +243,28 @@ const MarqueeAlongSvgPath = ({
   const scrollVelocity = useVelocity(scrollY)
   const smoothVelocity = useSpring(scrollVelocity, scrollSpringConfig)
 
-  // Hover and drag state tracking
+  // Hover, drag, and viewport visibility tracking
   const isHovered = useRef(false)
   const isDragging = useRef(false)
   const dragVelocity = useRef(0)
+  const isInView = useRef(true)
+
+  useEffect(() => {
+    const el = container.current
+    if (!el || typeof IntersectionObserver === "undefined") return
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          isInView.current = entry.isIntersecting
+        })
+      },
+      { rootMargin: "100px" }
+    )
+
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
 
   // Direction factor for changing direction based on scroll or drag
   const directionFactor = useRef(direction === "normal" ? 1 : -1)
@@ -264,8 +282,11 @@ const MarqueeAlongSvgPath = ({
     { clamp: false }
   )
 
-  // Animation frame handler
+  // Animation frame handler (paused when scrolled off-screen to save CPU/GPU)
   useAnimationFrame((_, delta) => {
+    if (!isInView.current && !isDragging.current) {
+      return
+    }
     if (isDragging.current && draggable) {
       baseOffset.set(baseOffset.get() + dragVelocity.current)
 

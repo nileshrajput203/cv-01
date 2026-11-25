@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
 import { Header } from '../components/layout/Header';
 import { Footer } from '../components/layout/Footer';
@@ -20,7 +20,13 @@ export const MainLayout: React.FC = () => {
         <Preloader onComplete={() => setPreloaderDone(true)} />
         <Header />
         <main className="flex-1">
-          <Outlet context={{ preloaderDone }} />
+          <Suspense fallback={
+            <div className="min-h-[50vh] flex items-center justify-center">
+              <div className="w-8 h-8 border-4 border-[#DF711B] border-t-transparent rounded-full animate-spin" />
+            </div>
+          }>
+            <Outlet context={{ preloaderDone }} />
+          </Suspense>
         </main>
         <Footer />
         <ChatbotFAB />

@@ -199,8 +199,6 @@ export default function Timeline({
     return mA - mB;
   });
 
-  const firstItemId = allJourneyItems[0]?.id;
-
   const sectionRef = useRef<HTMLElement>(null);
   const wholeSliderRef = useRef<HTMLDivElement>(null);
   const lineContainerRef = useRef<HTMLDivElement>(null);
@@ -228,15 +226,16 @@ export default function Timeline({
     }
 
     const isMobile = window.innerWidth < 600;
-    const slidePercent = isMobile ? -66 : -72;
+    const slidePercent = isMobile ? -66 : -56;
     const totalDuration = 100;
     // The line finishes drawing at 82% of total scrub - giving 18% "dwell" time
     // where everything stays pinned and visible before unpinning.
     const lineTravelDuration = 82;
+    const maxLineVw = 180;
 
     // 1. Reduced Motion handling
     if (reducedMotion) {
-      gsap.set(".journey-line", { width: "98%" });
+      gsap.set(".journey-line", { width: `${maxLineVw}vw` });
       allJourneyItems.forEach((item) => {
         gsap.set(`.jl-${item.id}`, { scaleY: 1 });
         gsap.set(`.jd-${item.id}`, { scale: 1 });
@@ -246,48 +245,22 @@ export default function Timeline({
       return;
     }
 
-    // 2. Strict initial setup: keep first milestone visible as the origin anchor, hide future ones
+    // 2. Strict initial setup: start from 0 so every milestone reveals as the user scrolls
     topJourneyData.forEach((item) => {
-      if (item.id === firstItemId) {
-        gsap.set(`.jl-${item.id}`, { scaleY: 1, transformOrigin: "bottom center" });
-        gsap.set(`.jd-${item.id}`, { scale: 1, transformOrigin: "center center" });
-        gsap.set(`.title-${item.id}`, { opacity: 1, y: 0 });
-        gsap.set(`.description-${item.id}`, { opacity: 1, y: 0 });
-      } else {
-        gsap.set(`.jl-${item.id}`, { scaleY: 0, transformOrigin: "bottom center" });
-        gsap.set(`.jd-${item.id}`, { scale: 0, transformOrigin: "center center" });
-        gsap.set(`.title-${item.id}`, { opacity: 0, y: 18 });
-        gsap.set(`.description-${item.id}`, { opacity: 0, y: 18 });
-      }
+      gsap.set(`.jl-${item.id}`, { scaleY: 0, transformOrigin: "bottom center" });
+      gsap.set(`.jd-${item.id}`, { scale: 0, transformOrigin: "center center" });
+      gsap.set(`.title-${item.id}`, { opacity: 0, y: 18 });
+      gsap.set(`.description-${item.id}`, { opacity: 0, y: 18 });
     });
 
     bottomJourneyData.forEach((item) => {
-      if (item.id === firstItemId) {
-        gsap.set(`.jl-${item.id}`, { scaleY: 1, transformOrigin: "top center" });
-        gsap.set(`.jd-${item.id}`, { scale: 1, transformOrigin: "center center" });
-        gsap.set(`.title-${item.id}`, { opacity: 1, y: 0 });
-        gsap.set(`.description-${item.id}`, { opacity: 1, y: 0 });
-      } else {
-        gsap.set(`.jl-${item.id}`, { scaleY: 0, transformOrigin: "top center" });
-        gsap.set(`.jd-${item.id}`, { scale: 0, transformOrigin: "center center" });
-        gsap.set(`.title-${item.id}`, { opacity: 0, y: -18 });
-        gsap.set(`.description-${item.id}`, { opacity: 0, y: -18 });
-      }
+      gsap.set(`.jl-${item.id}`, { scaleY: 0, transformOrigin: "top center" });
+      gsap.set(`.jd-${item.id}`, { scale: 0, transformOrigin: "center center" });
+      gsap.set(`.title-${item.id}`, { opacity: 0, y: -18 });
+      gsap.set(`.description-${item.id}`, { opacity: 0, y: -18 });
     });
 
-    // C. Calculate ACCURATE milestone positions from layout geometry.
-    const topCount = topJourneyData.length;
-    const bottomCount = bottomJourneyData.length;
-
-    const topLastStem = 18 + (topCount - 1) * 52;
-    const bottomLastStem = 18 + 13 + (bottomCount - 1) * 52;
-    const trackExtent = Math.max(topLastStem, bottomLastStem) + 26;
-
-    const firstStemX = 18;
-    const firstRatio = Math.max(0.04, Math.min(0.95, firstStemX / trackExtent));
-    const initialLineWidth = `${(firstRatio * 98).toFixed(1)}%`;
-
-    gsap.set(".journey-line", { width: initialLineWidth });
+    gsap.set(".journey-line", { width: "0vw" });
 
     // 3. Single synchronized Master GSAP Timeline
     const masterTl = gsap.timeline({
@@ -310,18 +283,16 @@ export default function Timeline({
       0
     );
 
-    // B. Horizontal orange line draws from 1993 milestone to the end of the timeline
+    // B. Horizontal orange line draws from 0vw to maxLineVw
     masterTl.fromTo(
       ".journey-line",
-      { width: initialLineWidth },
-      { width: "98%", duration: lineTravelDuration, ease: "none" },
+      { width: "0vw" },
+      { width: `${maxLineVw}vw`, duration: lineTravelDuration, ease: "none" },
       0
     );
 
-    // D. For each milestone, compute its arrival ratio and schedule animations
+    // D. For each milestone, compute its arrival time from its exact vw stem coordinate
     allJourneyItems.forEach((item) => {
-      if (item.id === firstItemId) return; // 1993 is already anchored and visible from the start
-
       const isTop = topJourneyData.some((t) => t.id === item.id);
       let stemX: number;
 
@@ -333,7 +304,7 @@ export default function Timeline({
         stemX = 18 + 13 + idx * 52;
       }
 
-      const ratio = Math.max(0.05, Math.min(0.95, stemX / trackExtent));
+      const ratio = Math.max(0.02, Math.min(0.98, stemX / maxLineVw));
       const arrivalTime = ratio * lineTravelDuration;
 
       // 1. Stem grows from the horizontal line
@@ -506,20 +477,24 @@ export default function Timeline({
 
             {/* Timeline Track Container */}
             <div ref={lineContainerRef} className="relative h-full w-full">
-              {/* The Horizontal Line with Traveling Tip Dot */}
-              <div className="w-full absolute left-0 top-[50%] -translate-y-1/2 flex items-center h-fit pointer-events-none z-10">
+              {/* The Horizontal Line with Start & Traveling Tip Dots */}
+              <div className="w-full absolute left-0 top-1/2 -translate-y-1/2 h-[2px] pointer-events-none z-10">
+                {/* Start anchor dot centered at left: 0 */}
                 <div
-                  className="size-[0.85vw] rounded-full shrink-0"
+                  className="size-[0.85vw] rounded-full absolute left-0 top-1/2 -translate-x-1/2 -translate-y-1/2"
                   style={activeStyle}
                 />
+                {/* Growing horizontal line starting from left: 0 */}
                 <div
-                  className="h-[2px] rounded-full journey-line shrink-0"
-                  style={{ ...activeStyle, width: "9%" }}
-                />
-                <div
-                  className="size-[0.85vw] rounded-full shrink-0 -ml-[0.425vw]"
-                  style={activeStyle}
-                />
+                  className="h-[2px] rounded-full journey-line relative"
+                  style={{ ...activeStyle, width: "0vw" }}
+                >
+                  {/* Traveling tip dot centered on the right tip of the line */}
+                  <div
+                    className="size-[0.85vw] rounded-full absolute right-0 top-1/2 translate-x-1/2 -translate-y-1/2"
+                    style={activeStyle}
+                  />
+                </div>
               </div>
 
               {/* TOP ROW MILESTONES */}
@@ -535,27 +510,26 @@ export default function Timeline({
 
                 <div className="flex h-full gap-x-[26vw]">
                   {topJourneyData.map((item) => {
-                    const isFirst = item.id === firstItemId;
                     return (
                       <div
                         key={`top-${item.id}`}
                         className="relative h-full w-[26vw] px-[2vw] flex flex-col justify-end pb-[1.8vw] shrink-0"
                       >
-                        {/* Stem & Dot */}
+                        {/* Stem & Dot (centered via negative margins so GSAP scale never shifts them) */}
                         <div className="w-full absolute left-0 bottom-0 top-0 pointer-events-none">
                           <div
-                            className={`size-[0.9vw] -translate-x-1/2 absolute top-0 left-0 rounded-full jd-${item.id}`}
+                            className={`size-[0.9vw] -ml-[0.45vw] absolute top-0 left-0 rounded-full jd-${item.id}`}
                             style={{
                               ...activeStyle,
-                              transform: isFirst ? "scale(1)" : "scale(0)",
+                              transform: "scale(0)",
                               transformOrigin: "center center",
                             }}
                           />
                           <div
-                            className={`w-[2px] absolute left-0 top-[0.45vw] bottom-0 -translate-x-1/2 origin-bottom jl-${item.id}`}
+                            className={`w-[2px] -ml-[1px] absolute left-0 top-[0.45vw] bottom-0 origin-bottom jl-${item.id}`}
                             style={{
                               ...activeStyle,
-                              transform: isFirst ? "scaleY(1)" : "scaleY(0)",
+                              transform: "scaleY(0)",
                               transformOrigin: "bottom center",
                             }}
                           />
@@ -567,8 +541,8 @@ export default function Timeline({
                             className={`title-${item.id} font-sans font-semibold text-[1.9vw] leading-none tracking-tight uppercase`}
                             style={{
                               color: textColor,
-                              opacity: isFirst ? 1 : 0,
-                              transform: isFirst ? "none" : "translateY(18px)",
+                              opacity: 0,
+                              transform: "translateY(18px)",
                             }}
                           >
                             {item.year} {item.month}
@@ -577,8 +551,8 @@ export default function Timeline({
                             className={`description-${item.id} w-[95%] font-sans text-[1.05vw] leading-[1.4] font-normal`}
                             style={{
                               ...mutedTextStyle,
-                              opacity: isFirst ? 1 : 0,
-                              transform: isFirst ? "none" : "translateY(18px)",
+                              opacity: 0,
+                              transform: "translateY(18px)",
                             }}
                           >
                             {item.content}
@@ -603,27 +577,26 @@ export default function Timeline({
 
                 <div className="flex h-full gap-x-[26vw] ml-[13vw]">
                   {bottomJourneyData.map((item) => {
-                    const isFirst = item.id === firstItemId;
                     return (
                       <div
                         key={`bottom-${item.id}`}
                         className="relative h-full w-[26vw] px-[2vw] flex flex-col justify-start pt-[1.8vw] shrink-0"
                       >
-                        {/* Stem & Dot */}
+                        {/* Stem & Dot (centered via negative margins so GSAP scale never shifts them) */}
                         <div className="w-full absolute left-0 top-0 bottom-0 pointer-events-none">
                           <div
-                            className={`w-[2px] absolute left-0 top-0 bottom-[0.45vw] -translate-x-1/2 origin-top jl-${item.id}`}
+                            className={`w-[2px] -ml-[1px] absolute left-0 top-0 bottom-[0.45vw] origin-top jl-${item.id}`}
                             style={{
                               ...activeStyle,
-                              transform: isFirst ? "scaleY(1)" : "scaleY(0)",
+                              transform: "scaleY(0)",
                               transformOrigin: "top center",
                             }}
                           />
                           <div
-                            className={`size-[0.9vw] -translate-x-1/2 absolute bottom-0 left-0 rounded-full jd-${item.id}`}
+                            className={`size-[0.9vw] -ml-[0.45vw] absolute bottom-0 left-0 rounded-full jd-${item.id}`}
                             style={{
                               ...activeStyle,
-                              transform: isFirst ? "scale(1)" : "scale(0)",
+                              transform: "scale(0)",
                               transformOrigin: "center center",
                             }}
                           />
@@ -635,8 +608,8 @@ export default function Timeline({
                             className={`title-${item.id} font-sans font-semibold text-[1.9vw] leading-none tracking-tight uppercase`}
                             style={{
                               color: textColor,
-                              opacity: isFirst ? 1 : 0,
-                              transform: isFirst ? "none" : "translateY(-18px)",
+                              opacity: 0,
+                              transform: "translateY(-18px)",
                             }}
                           >
                             {item.year} {item.month}
@@ -645,8 +618,8 @@ export default function Timeline({
                             className={`description-${item.id} w-[95%] font-sans text-[1.05vw] leading-[1.4] font-normal`}
                             style={{
                               ...mutedTextStyle,
-                              opacity: isFirst ? 1 : 0,
-                              transform: isFirst ? "none" : "translateY(-18px)",
+                              opacity: 0,
+                              transform: "translateY(-18px)",
                             }}
                           >
                             {item.content}

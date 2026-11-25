@@ -18,7 +18,7 @@ import { ScrollExpandingMosaic } from '../../components/home/ScrollExpandingMosa
 
 import { ChinmayaVisionPillarsShowcase } from '../../components/home/ChinmayaVisionPillarsShowcase';
 import { HeroBannerSection } from '../../components/home/HeroBannerSection';
-import { HeroVideoSection } from '../../components/home/HeroVideoSection';
+import { MobileHeroSection } from '../../components/home/MobileHeroSection';
 import { MissionVisionBulletinSection } from '../../components/home/MissionVisionBulletinSection';
 import { BannerCarousel } from '../../components/home/BannerCarousel';
 import { useBodyScrollLock } from '../../hooks/useBodyScrollLock';
@@ -116,14 +116,18 @@ export const HomePage: React.FC = () => {
     <div ref={homeWrapperRef} className="bg-white text-[#181C20] overflow-x-clip selection:bg-[#DF711B] selection:text-white font-sans">
       
       {/* ----------------------------------------------------
-          SECTION 01 - HERO SECTION (DESKTOP BANNER / MOBILE VIDEO)
+          SECTION 01 - HERO SECTION
+          DESKTOP: BANNER + VISION/MISSION/EVENTS BULLETIN
+          MOBILE: MOBILE HERO SHOWCASE (BEFORE WE VALUE)
          ---------------------------------------------------- */}
-      {isDesktop ? <HeroBannerSection /> : <HeroVideoSection />}
-
-      {/* ----------------------------------------------------
-          SECTION 01.5 - VISION, MISSION & UPCOMING EVENTS BULLETIN
-         ---------------------------------------------------- */}
-      <MissionVisionBulletinSection />
+      {isDesktop ? (
+        <>
+          <HeroBannerSection />
+          <MissionVisionBulletinSection />
+        </>
+      ) : (
+        <MobileHeroSection onOpenAdmissions={() => setIsAdmissionDrawerOpen(true)} />
+      )}
 
       {/* ----------------------------------------------------
           SECTION 02 - SCROLL-JACKED HORIZONTAL PANEL GALLERY
@@ -590,20 +594,20 @@ export const HomePage: React.FC = () => {
       {/* ----------------------------------------------------
           SECTION 08 - MASTER FINAL CONVERSION BANNER (ADMISSIONS)
          ---------------------------------------------------- */}
-      <section className="py-14 sm:py-20 md:py-28 bg-[#DF711B] text-white relative overflow-hidden shadow-2xl">
+      <section className="py-14 sm:py-20 md:py-28 bg-gradient-to-br from-[#0B1D30] via-[#122842] to-[#0B1D30] text-white relative overflow-hidden shadow-2xl border-b border-white/10">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 text-center space-y-5 sm:space-y-7 relative z-10">
           
-          <div className="inline-flex items-center gap-2 bg-white/10 px-3.5 py-1.5 text-[10px] sm:text-[11px] font-mono tracking-widest text-[#FFB740] uppercase font-bold border border-white/20 rounded-full">
+          <div className="inline-flex items-center gap-2 bg-[#FFB740]/15 px-3.5 py-1.5 text-[10px] sm:text-[11px] font-mono tracking-widest text-[#FFB740] uppercase font-bold border border-[#FFB740]/35 rounded-full">
             <GraduationCap className="w-4 h-4" />
             <span>SESSION 2027-28 ADMISSIONS OPEN (NURSERY TO CLASS 11)</span>
           </div>
 
           <h2 className="font-cinzel text-2xl xs:text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-[1.08] uppercase">
-            SHAPE A FUTURE OF <br className="hidden sm:inline" />
-            <span className="text-[#FFB740]">WISDOM AND DISTINCTION.</span>
+            SHAPE YOUR FUTURE WITH <br className="hidden sm:inline" />
+            <span className="text-[#FFB740]">WISDOM AND DISTINCTION</span>
           </h2>
 
-          <p className="text-xs sm:text-base md:text-lg text-white/90 max-w-2xl mx-auto font-normal leading-relaxed">
+          <p className="text-xs sm:text-base md:text-lg text-slate-200 max-w-2xl mx-auto font-normal leading-relaxed">
             Join the Chinmaya Vidyalaya family in Boisar / Tarapur. Download application forms, schedule a campus visit, or connect with our academic admissions office today.
           </p>
 
@@ -611,22 +615,22 @@ export const HomePage: React.FC = () => {
             <button
               type="button"
               onClick={() => setIsAdmissionDrawerOpen(true)}
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3.5 sm:py-4 bg-white hover:bg-[#181C20] text-[#DF711B] hover:text-white font-sans font-bold text-xs uppercase tracking-wider rounded-xl transition-all shadow-lg cursor-pointer"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3.5 sm:py-4 bg-[#FFB740] hover:bg-[#FFC769] text-[#0B1D30] font-sans font-bold text-xs uppercase tracking-wider rounded-xl transition-all shadow-lg cursor-pointer"
             >
-              <span className="text-[#DF711B] font-bold text-sm">›</span>
+              <span className="text-[#0B1D30] font-bold text-sm">›</span>
               <span>APPLY ONLINE & DOWNLOAD FORMS</span>
             </button>
 
             <Link
               to="/contact"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3.5 sm:py-4 bg-transparent hover:bg-white/10 text-white border border-white/40 font-sans font-bold text-xs uppercase tracking-wider rounded-xl transition-all"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3.5 sm:py-4 bg-white/10 hover:bg-white/20 text-white border border-white/30 font-sans font-bold text-xs uppercase tracking-wider rounded-xl transition-all"
             >
               <span className="text-[#FFB740] font-bold text-sm">›</span>
               <span>CONTACT CAMPUS OFFICE</span>
             </Link>
           </div>
 
-          <div className="pt-4 flex flex-wrap items-center justify-center gap-4 sm:gap-6 text-[11px] sm:text-xs font-mono text-white/80">
+          <div className="pt-4 flex flex-wrap items-center justify-center gap-4 sm:gap-6 text-[11px] sm:text-xs font-mono text-slate-300">
             <span className="flex items-center gap-1.5">
               <MapPin className="w-3.5 h-3.5 text-[#FFB740]" />
               P-201 MIDC Area, Boisar 401501

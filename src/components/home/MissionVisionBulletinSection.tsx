@@ -208,7 +208,7 @@ export const MissionVisionBulletinSection: React.FC = () => {
 
               {/* Interactive Timeline Feed */}
               <div className="flex-1 divide-y divide-[#E7E2D8]/80 px-3 sm:px-4 py-2">
-                {UPCOMING_EVENTS.map((ev) => {
+                {UPCOMING_EVENTS.slice(0, 5).map((ev) => {
                   const { monthShort, day } = parseBadgeDate(ev.date);
                   const isExpanded = expandedEventId === ev.id;
 

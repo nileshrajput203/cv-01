@@ -12,6 +12,17 @@ export interface SchoolEvent {
 
 export const UPCOMING_EVENTS: SchoolEvent[] = [
   {
+    id: 'ev-17',
+    title: 'Grand Matru Pitru Pujan',
+    date: 'December 06, 2026',
+    month: 'December 2026',
+    time: '9:00 AM - 11:00 AM',
+    venue: 'Chinmaya Vidyalaya Tarapur',
+    tag: 'Cultural Celebration',
+    desc: 'Grand Matru Pitru Pujan on Sunday, 06 December 2026 in the Holy Presence of Pujya Swami Anukoolananda ji.',
+    summary: 'Grand Matru Pitru Pujan in the Holy Presence of Pujya Swami Anukoolananda ji (06.12.2026).'
+  },
+  {
     id: 'ev-18',
     title: 'Winter Break',
     date: 'December 25, 2026',

@@ -62,7 +62,7 @@ const PILLARS_DATA: PillarDetail[] = [
   {
     number: '02',
     sanskritName: 'Bhartiya Sanskriti Evam Sanskar',
-    englishTitle: 'Indian Culture & Heritage',
+    englishTitle: 'Indian Culture',
     corePurpose: 'Rooting students in timeless Indian traditions, cultural wisdom, and lifelong respect for family, teachers, and society.',
     dailyPractices: [
       {
@@ -201,12 +201,11 @@ export const FourPillarsShowcase: React.FC = () => {
               <span id={pillar.number === '01' ? 'pillar-integrated' : pillar.number === '02' ? 'pillar-culture' : pillar.number === '03' ? 'pillar-patriotism' : 'pillar-universal'} className="absolute -top-24 sm:-top-28 pointer-events-none" />
               <span id={pillar.number === '01' ? 'integrated' : pillar.number === '02' ? 'culture' : pillar.number === '03' ? 'patriotism' : 'universal'} className="absolute -top-24 sm:-top-28 pointer-events-none" />
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center">
-                
+
                 {/* Visual / Image Column with Overlapping Number */}
                 <div
-                  className={`lg:col-span-6 ${
-                    isImageRight ? 'lg:order-2' : 'lg:order-1'
-                  }`}
+                  className={`lg:col-span-6 ${isImageRight ? 'lg:order-2' : 'lg:order-1'
+                    }`}
                 >
                   <div className="relative pt-10 sm:pt-14">
                     {/* Big Orange Overlapping Number */}
@@ -227,12 +226,11 @@ export const FourPillarsShowcase: React.FC = () => {
 
                 {/* Content Column: Proper Font Hierarchy & Scannable Format */}
                 <div
-                  className={`lg:col-span-6 ${
-                    isImageRight ? 'lg:order-1' : 'lg:order-2'
-                  }`}
+                  className={`lg:col-span-6 ${isImageRight ? 'lg:order-1' : 'lg:order-2'
+                    }`}
                 >
                   <div className="space-y-4 lg:py-1">
-                    
+
                     {/* Level 1: Subtitle / Sanskrit Eyebrow */}
                     <div className="flex items-center gap-2">
                       <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-[#DF711B]">

@@ -353,7 +353,7 @@ export const ChinmayaVisionPillarsShowcase: React.FC = () => {
                     }}
                     className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-none uppercase font-bold text-xs sm:text-sm tracking-wider transition-transform hover:scale-[1.02] active:scale-[0.98] shadow-sm cursor-pointer"
                   >
-                    <span>EXPLORE THIS PILLAR</span>
+                    <span>EXPLORE MORE PILLAR OF CVP</span>
                     <ArrowRight className="w-4 h-4" />
                   </Link>
                 </div>

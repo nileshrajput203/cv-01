@@ -62,11 +62,11 @@ export const Footer: React.FC = () => {
                   <p className="text-[10.5px] text-amber-400 font-mono tracking-wider uppercase font-semibold mt-1">
                     CBSE AFFILIATED • ESTD. 1995
                   </p>
+                  <p className="text-xs text-slate-300 italic font-serif leading-relaxed mt-1">
+                    School With A Difference
+                  </p>
                 </div>
               </Link>
-              <p className="text-xs text-slate-400 italic font-serif max-w-xs leading-relaxed">
-                "Keep Smiling - Knowledge, Vision & Character"
-              </p>
             </div>
 
             {/* Flipped Cutout Image rising from the bottom */}

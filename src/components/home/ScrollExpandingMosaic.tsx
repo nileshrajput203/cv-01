@@ -284,7 +284,7 @@ export const ScrollExpandingMosaic: React.FC = () => {
           <img
             src="/images/Chinmaya_Logo.png"
             alt=""
-            className="w-full h-full object-contain filter grayscale contrast-125 opacity-70"
+            className="w-full h-full object-contain"
           />
         </div>
 

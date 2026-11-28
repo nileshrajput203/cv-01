@@ -42,6 +42,15 @@ function autoScanImagesPlugin(): Plugin {
   };
 }
 
+const apiPort = process.env.API_PORT || '5000';
+const apiProxy = {
+  '/api': {
+    target: `http://localhost:${apiPort}`,
+    changeOrigin: true,
+    secure: false,
+  },
+};
+
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react(), autoScanImagesPlugin()],
@@ -54,25 +63,13 @@ export default defineConfig({
     host: '0.0.0.0',
     port: 3000,
     allowedHosts: true,
-    proxy: {
-      '/api': {
-        target: 'http://localhost:5000',
-        changeOrigin: true,
-        secure: false,
-      },
-    },
+    proxy: apiProxy,
   },
   preview: {
     host: '0.0.0.0',
     port: 3000,
     allowedHosts: true,
-    proxy: {
-      '/api': {
-        target: 'http://localhost:5000',
-        changeOrigin: true,
-        secure: false,
-      },
-    },
+    proxy: apiProxy,
   },
   build: {
     chunkSizeWarningLimit: 1000,

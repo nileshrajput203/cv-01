@@ -15,7 +15,7 @@ export const MissionVisionBulletinSection: React.FC = () => {
 
   return (
     <section
-      className="relative w-full py-12 sm:py-16 lg:py-20 bg-[#FCFBF7] border-y border-[#E7E2D8] text-[#181C20] font-sans overflow-hidden"
+      className="relative w-full py-6 sm:py-8 lg:py-10 bg-[#FCFBF7] border-y border-[#E7E2D8] text-[#181C20] font-sans overflow-hidden"
       aria-label="School Vision, Mission and Upcoming Events Bulletin"
     >
       {/* Subtle architectural background grid */}
@@ -28,12 +28,12 @@ export const MissionVisionBulletinSection: React.FC = () => {
         }}
       />
 
-      <div className="relative z-10 max-w-[1380px] mx-auto px-4 sm:px-6 lg:px-10 space-y-8 lg:space-y-10">
-        
+      <div className="relative z-10 max-w-[1380px] mx-auto px-4 sm:px-6 lg:px-10 space-y-5 lg:space-y-6">
+
         {/* ----------------------------------------------------
             EDITORIAL MASTHEAD
            ---------------------------------------------------- */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-6 border-b border-[#181C20]/10">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-3 pb-4 border-b border-[#181C20]/10">
           <div className="space-y-2">
             <div className="inline-flex items-center gap-2 text-[10px] sm:text-[11px] font-mono uppercase tracking-[0.26em] text-[#DF711B] font-bold">
               <span className="w-6 h-[2px] bg-[#DF711B]" />
@@ -61,125 +61,74 @@ export const MissionVisionBulletinSection: React.FC = () => {
         {/* ----------------------------------------------------
             ASYMMETRIC BENTO-EDITORIAL GRID
            ---------------------------------------------------- */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch">
-          
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-6 items-stretch">
+
           {/* LEFT 7 COLUMNS: VISION & MISSION */}
-          <div className="lg:col-span-7 flex flex-col gap-6">
-            
-            {/* 01 // OUR VISION - OBSIDIAN EDITORIAL CARD */}
-            <article className="group relative flex-1 rounded-3xl bg-[#0B1D30] text-white p-6 sm:p-8 lg:p-9 overflow-hidden shadow-[0_24px_60px_rgba(11,29,48,0.16)] border border-white/10 flex flex-col justify-between gap-6">
-              {/* Oversized Architectural Watermark */}
-              <span
-                aria-hidden="true"
-                className="pointer-events-none select-none absolute right-5 bottom-2 font-display font-black text-[96px] sm:text-[120px] leading-none text-white/[0.04] tracking-tighter"
+          <div className="lg:col-span-7 flex flex-col gap-4">
+            {[
+              {
+                num: '01',
+                label: '01 / Institutional Vision',
+                title: 'Our Vision',
+                badge: 'Pioneering Future',
+                quote: '“To empower a community of learners who dare to dream, take risks and develop new realities.”',
+                Icon: Eye,
+              },
+              {
+                num: '02',
+                label: '02 / Sacred Mission',
+                title: 'Our Mission',
+                badge: 'Timeless Values',
+                quote: '“To offer value-based holistic education that integrates ancient Indian cultural ethos with modern scientific inquiry.”',
+                Icon: Target,
+              },
+            ].map(({ num, label, title, badge, quote, Icon }) => (
+              <article
+                key={num}
+                className="group relative flex-1 rounded-3xl bg-[#FBF6EE] text-[#181C20] p-5 sm:p-6 overflow-hidden shadow-[0_14px_40px_rgba(24,28,32,0.05)] border border-[#E7E2D8] hover:border-[#DF711B]/50 transition-colors flex flex-col justify-center"
               >
-                01
-              </span>
+                {/* Oversized Architectural Watermark */}
+                <span
+                  aria-hidden="true"
+                  className="pointer-events-none select-none absolute right-5 bottom-1 font-display font-black text-[72px] sm:text-[88px] leading-none text-[#181C20]/[0.04] tracking-tighter"
+                >
+                  {num}
+                </span>
 
-              <div className="relative z-10 space-y-5">
-                {/* Top Meta Row */}
-                <div className="flex items-center justify-between gap-3">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#DF711B] to-[#FFB740] text-white flex items-center justify-center shadow-md shrink-0">
-                      <Eye className="w-5 h-5" />
+                <div className="relative z-10 space-y-3.5">
+                  {/* Top Meta Row */}
+                  <div className="flex items-center justify-between gap-3">
+                    <div className="flex items-center gap-3">
+                      <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#DF711B] to-[#FFB740] text-white flex items-center justify-center shadow-md shrink-0">
+                        <Icon className="w-4 h-4" />
+                      </div>
+                      <div>
+                        <span className="text-[10px] font-mono font-bold uppercase tracking-[0.22em] text-[#DF711B] block">
+                          {label}
+                        </span>
+                        <h3 className="font-cinzel text-lg sm:text-xl font-extrabold text-[#181C20] tracking-tight m-0">
+                          {title}
+                        </h3>
+                      </div>
                     </div>
-                    <div>
-                      <span className="text-[10px] font-mono font-bold uppercase tracking-[0.22em] text-[#FFB740] block">
-                        01 / Institutional Vision
-                      </span>
-                      <h3 className="font-cinzel text-xl sm:text-2xl font-extrabold text-white tracking-tight m-0">
-                        Our Vision
-                      </h3>
-                    </div>
+                    <span className="hidden sm:inline-block px-3 py-1 rounded-full bg-white border border-[#DF711B]/25 text-[10px] font-mono font-bold text-[#DF711B] uppercase tracking-wider">
+                      {badge}
+                    </span>
                   </div>
-                  <span className="hidden sm:inline-block px-3 py-1 rounded-full bg-white/10 border border-white/15 text-[10px] font-mono font-semibold text-[#FFF7DF] uppercase tracking-wider">
-                    Pioneering Future
-                  </span>
+
+                  {/* Editorial Pull Quote */}
+                  <blockquote className="font-serif italic text-base sm:text-[19px] lg:text-[21px] text-[#181C20] font-semibold leading-[1.35] border-l-2 border-[#DF711B] pl-4 m-0">
+                    {quote}
+                  </blockquote>
                 </div>
-
-                {/* Editorial Pull Quote */}
-                <blockquote className="font-serif italic text-lg sm:text-[22px] lg:text-[24px] text-white font-medium leading-[1.4] border-l-2 border-[#FFB740] pl-4 sm:pl-5 m-0">
-                  “To empower a community of learners who dare to dream, take risks and develop new realities.”
-                </blockquote>
-
-                <p className="text-xs sm:text-sm text-slate-300 leading-relaxed max-w-2xl m-0">
-                  We envision graduates who are self-reliant, intellectually bold, emotionally poised, and morally steadfast—equipped with modern CBSE scientific competencies and rooted in timeless cultural integrity.
-                </p>
-              </div>
-
-              {/* Glassmorphic Pillar Tags */}
-              <div className="relative z-10 pt-4 border-t border-white/10 flex flex-wrap items-center gap-2">
-                {['Fearless Inquiry', 'Creative Risk-Taking', 'Ethical Leadership'].map((tag) => (
-                  <span
-                    key={tag}
-                    className="px-3 py-1.5 rounded-full bg-white/[0.07] border border-white/15 text-[11px] font-medium text-slate-100 tracking-wide"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            </article>
-
-            {/* 02 // OUR MISSION - ARCHIVAL IVORY EDITORIAL CARD */}
-            <article className="group relative flex-1 rounded-3xl bg-white text-[#181C20] p-6 sm:p-8 lg:p-9 overflow-hidden shadow-[0_14px_40px_rgba(24,28,32,0.05)] border border-[#E7E2D8] hover:border-[#DF711B]/50 transition-colors flex flex-col justify-between gap-6">
-              {/* Oversized Architectural Watermark */}
-              <span
-                aria-hidden="true"
-                className="pointer-events-none select-none absolute right-5 bottom-2 font-display font-black text-[96px] sm:text-[120px] leading-none text-[#181C20]/[0.03] tracking-tighter"
-              >
-                02
-              </span>
-
-              <div className="relative z-10 space-y-5">
-                {/* Top Meta Row */}
-                <div className="flex items-center justify-between gap-3">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-[#0B1D30] text-white flex items-center justify-center shadow-sm shrink-0">
-                      <Target className="w-5 h-5 text-[#FFB740]" />
-                    </div>
-                    <div>
-                      <span className="text-[10px] font-mono font-bold uppercase tracking-[0.22em] text-[#DF711B] block">
-                        02 / Sacred Mission
-                      </span>
-                      <h3 className="font-cinzel text-xl sm:text-2xl font-extrabold text-[#181C20] tracking-tight m-0">
-                        Our Mission
-                      </h3>
-                    </div>
-                  </div>
-                  <span className="hidden sm:inline-block px-3 py-1 rounded-full bg-[#FAF3E8] border border-[#DF711B]/25 text-[10px] font-mono font-bold text-[#DF711B] uppercase tracking-wider">
-                    Timeless Values
-                  </span>
-                </div>
-
-                {/* Editorial Pull Quote */}
-                <blockquote className="font-serif italic text-lg sm:text-[22px] text-[#181C20] font-semibold leading-[1.4] border-l-2 border-[#DF711B] pl-4 sm:pl-5 m-0">
-                  “To offer value-based holistic education that integrates ancient Indian cultural ethos with modern scientific inquiry.”
-                </blockquote>
-
-                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed max-w-2xl m-0">
-                  Nurturing physical vitality, mental agility, intellectual depth, and spiritual awakening through the 4 pillars of the Chinmaya Vision Programme, molding patriotic citizens with universal empathy.
-                </p>
-              </div>
-
-              {/* Footer Tags */}
-              <div className="relative z-10 pt-4 border-t border-[#E7E2D8] flex flex-wrap items-center gap-2">
-                {['Value Education', 'Scientific Temper', 'Global Brotherhood'].map((tag) => (
-                  <span
-                    key={tag}
-                    className="px-3 py-1 rounded-full bg-[#FCFBF7] border border-[#E7E2D8] text-[11px] font-semibold text-[#181C20]"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            </article>
-
+              </article>
+            ))}
           </div>
 
           {/* RIGHT 5 COLUMNS: CURATED CAMPUS DISPATCH / UPCOMING EVENTS BULLETIN */}
           <div className="lg:col-span-5 flex flex-col">
             <div className="rounded-3xl bg-white border border-[#E7E2D8] shadow-[0_20px_50px_rgba(11,29,48,0.06)] overflow-hidden flex flex-col h-full">
-              
+
               {/* Editorial Dispatch Header */}
               <div className="px-6 py-5 bg-[#FCFBF7] border-b border-[#E7E2D8] flex items-center justify-between gap-3">
                 <div className="space-y-1">
@@ -207,8 +156,8 @@ export const MissionVisionBulletinSection: React.FC = () => {
               </div>
 
               {/* Interactive Timeline Feed */}
-              <div className="flex-1 divide-y divide-[#E7E2D8]/80 px-3 sm:px-4 py-2">
-                {UPCOMING_EVENTS.slice(0, 5).map((ev) => {
+              <div className="flex-1 divide-y divide-[#E7E2D8]/80 px-3 sm:px-4 py-1.5">
+                {UPCOMING_EVENTS.slice(0, 3).map((ev) => {
                   const { monthShort, day } = parseBadgeDate(ev.date);
                   const isExpanded = expandedEventId === ev.id;
 
@@ -217,24 +166,21 @@ export const MissionVisionBulletinSection: React.FC = () => {
                       key={ev.id}
                       type="button"
                       onClick={() => setExpandedEventId(isExpanded ? null : ev.id)}
-                      className={`w-full text-left group p-3.5 my-1 rounded-2xl transition-all duration-200 flex items-start gap-4 cursor-pointer ${
-                        isExpanded
-                          ? 'bg-[#FAF3E8]/70 ring-1 ring-[#DF711B]/25'
-                          : 'hover:bg-[#FCFBF7]'
-                      }`}
+                      className={`w-full text-left group p-3.5 my-1 rounded-2xl transition-all duration-200 flex items-start gap-4 cursor-pointer ${isExpanded
+                        ? 'bg-[#FAF3E8]/70 ring-1 ring-[#DF711B]/25'
+                        : 'hover:bg-[#FCFBF7]'
+                        }`}
                     >
                       {/* Editorial Date Tile */}
                       <div
-                        className={`w-14 h-14 rounded-2xl flex flex-col items-center justify-center shrink-0 text-center px-2 py-1.5 border transition-colors ${
-                          isExpanded
-                            ? 'bg-[#DF711B] border-[#DF711B] text-white shadow-sm'
-                            : 'bg-[#FCFBF7] border-[#E7E2D8] text-[#181C20] group-hover:border-[#DF711B]/50'
-                        }`}
+                        className={`w-14 h-14 rounded-2xl flex flex-col items-center justify-center shrink-0 text-center px-2 py-1.5 border transition-colors ${isExpanded
+                          ? 'bg-[#DF711B] border-[#DF711B] text-white shadow-sm'
+                          : 'bg-[#FCFBF7] border-[#E7E2D8] text-[#181C20] group-hover:border-[#DF711B]/50'
+                          }`}
                       >
                         <span
-                          className={`text-[9px] font-mono font-bold uppercase tracking-wider leading-none ${
-                            isExpanded ? 'text-[#FFF7DF]' : 'text-[#DF711B]'
-                          }`}
+                          className={`text-[9px] font-mono font-bold uppercase tracking-wider leading-none ${isExpanded ? 'text-[#FFF7DF]' : 'text-[#DF711B]'
+                            }`}
                         >
                           {monthShort}
                         </span>
@@ -250,11 +196,10 @@ export const MissionVisionBulletinSection: React.FC = () => {
                             {ev.tag}
                           </span>
                           <ArrowUpRight
-                            className={`w-3.5 h-3.5 transition-transform ${
-                              isExpanded
-                                ? 'text-[#DF711B] rotate-45'
-                                : 'text-slate-400 group-hover:text-[#DF711B] group-hover:translate-x-0.5 group-hover:-translate-y-0.5'
-                            }`}
+                            className={`w-3.5 h-3.5 transition-transform ${isExpanded
+                              ? 'text-[#DF711B] rotate-45'
+                              : 'text-slate-400 group-hover:text-[#DF711B] group-hover:translate-x-0.5 group-hover:-translate-y-0.5'
+                              }`}
                           />
                         </div>
 
@@ -263,9 +208,8 @@ export const MissionVisionBulletinSection: React.FC = () => {
                         </h4>
 
                         <p
-                          className={`text-xs text-slate-600 leading-relaxed m-0 ${
-                            isExpanded ? '' : 'line-clamp-1'
-                          }`}
+                          className={`text-xs text-slate-600 leading-relaxed m-0 ${isExpanded ? '' : 'line-clamp-1'
+                            }`}
                         >
                           {isExpanded ? ev.desc : ev.summary}
                         </p>

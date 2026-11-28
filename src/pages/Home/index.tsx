@@ -130,6 +130,11 @@ export const HomePage: React.FC = () => {
       )}
 
       {/* ----------------------------------------------------
+          SECTION 03 - SCROLL-EXPANDING MEDIA MOSAIC (WELCOME TO CHINMAYA VIDYALAYA)
+         ---------------------------------------------------- */}
+      <ScrollExpandingMosaic />
+
+      {/* ----------------------------------------------------
           SECTION 02 - SCROLL-JACKED HORIZONTAL PANEL GALLERY
           Panel A: "WE VALUE" 4-Column Grid
           Panel B: "PALGHAR DISTRICT'S BEST CBSE SCHOOL" Studio Cutout
@@ -371,11 +376,6 @@ export const HomePage: React.FC = () => {
           SECTION 05.5 - LIVE NOTICE & EVENT BOARD
          ---------------------------------------------------- */}
       <NoticeEventBoard />
-
-      {/* ----------------------------------------------------
-          SECTION 05.6 - SCROLL-EXPANDING MEDIA MOSAIC
-         ---------------------------------------------------- */}
-      <ScrollExpandingMosaic />
 
       {/* ----------------------------------------------------
           SECTION 05.65 - SIGN BANNER

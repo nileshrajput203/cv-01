@@ -81,7 +81,7 @@ export const ScrollExpandingMosaic: React.FC = () => {
               style={{ color: 'var(--color-text)' }}
               className="text-[16px] sm:text-[20px] lg:text-[26px] uppercase font-bold tracking-[0.28em] leading-tight font-sans"
             >
-              WELCOME TO
+              EXPLORE THE SPIRIT OF
             </p>
             <h2
               style={{ color: 'var(--color-primary)' }}
@@ -213,7 +213,7 @@ export const ScrollExpandingMosaic: React.FC = () => {
             style={{ color: 'var(--color-text)' }}
             className="text-xl uppercase font-bold tracking-widest font-sans"
           >
-            WELCOME TO
+            EXPLORE THE SPIRIT OF
           </p>
           <h2
             style={{ color: 'var(--color-primary)' }}

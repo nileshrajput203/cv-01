@@ -173,7 +173,7 @@ export const HeroBannerSection: React.FC = () => {
       </div>
 
       {/* Main Content Container */}
-      <div className="relative z-10 w-full px-4 sm:px-14 lg:pl-14 lg:pr-16 py-6 sm:py-8 lg:py-10 min-h-[400px] lg:min-h-[440px] flex flex-col lg:flex-row items-center justify-end gap-6 lg:gap-8">
+      <div className="relative z-10 w-full px-4 sm:px-14 lg:pl-14 lg:pr-16 py-6 sm:py-8 lg:py-10 min-h-[400px] lg:aspect-[1910/606] flex flex-col lg:flex-row items-center justify-end gap-6 lg:gap-8">
 
         {/* Right Side: Admissions Open Inquiry Card */}
         <div className="w-full max-w-[440px] lg:w-[400px] xl:w-[420px] shrink-0">

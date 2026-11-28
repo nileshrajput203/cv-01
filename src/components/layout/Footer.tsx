@@ -360,7 +360,7 @@ export const Footer: React.FC = () => {
             </div>
             <span className="text-slate-600 hidden sm:inline">|</span>
             <span className="text-[11px] text-slate-500 font-mono">
-              Designed for <strong className="text-slate-300">Chinmaya Vidyalaya Tarapur</strong>
+              <strong className="text-slate-300">Chinmaya Vidyalaya Tarapur</strong>
             </span>
           </div>
 

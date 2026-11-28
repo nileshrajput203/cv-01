@@ -288,11 +288,38 @@ export const ScrollExpandingMosaic: React.FC = () => {
           />
         </div>
 
-        {/* Centered Sanskrit Motto */}
-        <p
-          style={{ color: 'var(--color-text)' }}
-          className="text-3xl sm:text-4xl lg:text-[42px] font-serif font-bold tracking-wide leading-relaxed m-0"
-        >
+        {/* Centered Sanskrit Motto (Website-Aligned Saffron-Gold Shimmer) */}
+        <style>{`
+          @keyframes goldShimmer {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+          }
+          .gold-glitter-text {
+            background-image: linear-gradient(
+              110deg,
+              #9A4506 0%,
+              #DF711B 22%,
+              #FFB740 38%,
+              #FFE4A3 50%,
+              #FFB740 62%,
+              #DF711B 78%,
+              #9A4506 100%
+            );
+            background-size: 220% auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: goldShimmer 4.5s ease-in-out infinite;
+          }
+          @media (prefers-reduced-motion: reduce) {
+            .gold-glitter-text {
+              animation: none;
+              background-position: 50% 50%;
+            }
+          }
+        `}</style>
+        <p className="gold-glitter-text py-4 px-2 text-4xl sm:text-5xl lg:text-[56px] xl:text-[64px] font-serif font-bold tracking-wide leading-[1.8] drop-shadow-[0_2px_10px_rgba(223,113,27,0.28)] m-0">
           विद्या ददाति विनयम
         </p>
       </div>

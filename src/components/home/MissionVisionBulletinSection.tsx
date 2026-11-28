@@ -72,7 +72,7 @@ export const MissionVisionBulletinSection: React.FC = () => {
                 alt="Chinmaya Vidyalaya Our Vision and Our Mission Plaque"
                 loading="lazy"
                 decoding="async"
-                className="w-auto max-w-full max-h-[440px] sm:max-h-[500px] lg:max-h-[540px] object-contain mx-auto drop-shadow-[0_18px_40px_rgba(11,29,48,0.12)] select-none"
+                className="w-auto max-w-full max-h-[500px] sm:max-h-[560px] lg:max-h-[620px] object-contain mx-auto drop-shadow-[0_18px_40px_rgba(11,29,48,0.12)] select-none"
               />
             </picture>
           </div>

@@ -61,7 +61,7 @@ const Faq05: React.FC<Faq05Props> = ({
             <img 
               src="/images/faq-student-thinking.png" 
               alt="Student thinking about questions" 
-              className="w-48 sm:w-56 md:w-64 lg:w-72 xl:w-80 max-w-full max-h-[360px] h-auto object-contain drop-shadow-xl hover:scale-105 transition-transform duration-300 select-none"
+              className="w-60 sm:w-72 md:w-80 lg:w-[340px] xl:w-[380px] max-w-full max-h-[440px] h-auto object-contain drop-shadow-xl hover:scale-105 transition-transform duration-300 select-none"
               draggable={false}
             />
           </div>

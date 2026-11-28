@@ -12,10 +12,22 @@ interface HeroSlide {
 
 const HERO_SLIDES: HeroSlide[] = [
   {
-    id: 'campus',
-    image: '/images/banner-1.webp?v=2',
-    fallback: '/images/banner-1.jpg',
-    alt: 'Chinmaya Vidyalaya Tarapur Campus',
+    id: 'campus-front',
+    image: '/images/hero-campus-front.webp',
+    fallback: '/images/hero-campus-front.png',
+    alt: 'Chinmaya Vidyalaya Tarapur Campus Front Facade',
+  },
+  {
+    id: 'courtyard',
+    image: '/images/hero-courtyard.webp',
+    fallback: '/images/hero-courtyard.png',
+    alt: 'Chinmaya Vidyalaya Tarapur Courtyard and Shrine',
+  },
+  {
+    id: 'aerial',
+    image: '/images/hero-aerial.webp',
+    fallback: '/images/hero-aerial.jpg',
+    alt: 'Chinmaya Vidyalaya Tarapur Aerial Campus View',
   },
 ];
 
@@ -42,6 +54,7 @@ export const HeroBannerSection: React.FC = () => {
   const { showSuccess, showToast } = useToast();
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+  const [isFormOpen, setIsFormOpen] = useState(false);
   const touchStartXRef = useRef<number | null>(null);
 
   // Admissions Form State
@@ -172,12 +185,33 @@ export const HeroBannerSection: React.FC = () => {
         <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-black/50 to-transparent pointer-events-none" />
       </div>
 
-      {/* Main Content Container */}
-      <div className="relative z-10 w-full px-4 sm:px-14 lg:pl-14 lg:pr-16 py-6 sm:py-8 lg:py-10 min-h-[400px] lg:aspect-[1910/606] flex flex-col lg:flex-row items-center justify-end gap-6 lg:gap-8">
+      {/* Banner Height Container (keeps 1910x606 desktop proportion) */}
+      <div className="relative z-10 w-full min-h-[400px] lg:aspect-[1910/606] pointer-events-none" />
 
-        {/* Right Side: Admissions Open Inquiry Card */}
-        <div className="w-full max-w-[440px] lg:w-[400px] xl:w-[420px] shrink-0">
-          <div className="bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl border border-white/50 p-4 sm:p-5 text-[#181C20]">
+      {/* Right-Edge Sticky Admissions Box (Expands to Form on Hover) */}
+      <div
+        className="absolute right-0 top-1/2 -translate-y-1/2 z-30 flex items-center"
+        onMouseEnter={() => setIsFormOpen(true)}
+        onMouseLeave={() => setIsFormOpen(false)}
+        onFocus={() => setIsFormOpen(true)}
+      >
+        {!isFormOpen ? (
+          <button
+            type="button"
+            onClick={() => setIsFormOpen(true)}
+            aria-label="Admissions Open for 2027-28 - Hover or click to open enquiry form"
+            className="bg-[#DF711B] hover:bg-[#c55e11] text-white px-2.5 py-4 rounded-l-lg rounded-r-none shadow-2xl border-y border-l border-white/25 flex flex-col items-center justify-center gap-2 cursor-pointer transition-all duration-200"
+          >
+            <ChevronLeft className="w-4 h-4 shrink-0" />
+            <span
+              style={{ writingMode: 'vertical-rl' }}
+              className="rotate-180 font-display font-extrabold text-xs sm:text-sm tracking-wider whitespace-nowrap"
+            >
+              Admission Open for 2027-28
+            </span>
+          </button>
+        ) : (
+          <div className="w-[calc(100vw-24px)] max-w-[400px] lg:w-[400px] xl:w-[420px] bg-white/95 backdrop-blur-md rounded-l-2xl rounded-r-none shadow-2xl border-y border-l border-white/60 p-4 sm:p-5 text-[#181C20]">
             {/* Card Header */}
             <div className="flex items-center justify-between gap-2 pb-2.5 mb-3 border-b border-slate-200">
               <h2 className="font-display font-extrabold text-base sm:text-lg text-[#181C20] m-0">
@@ -317,7 +351,7 @@ export const HeroBannerSection: React.FC = () => {
               </form>
             )}
           </div>
-        </div>
+        )}
       </div>
 
       {/* Carousel Controls: Prev/Next Arrows & Bottom Pagination Dots (only when multiple slides) */}
@@ -327,7 +361,7 @@ export const HeroBannerSection: React.FC = () => {
             type="button"
             onClick={handlePrev}
             aria-label="Previous slide"
-            className="hidden sm:flex absolute left-3 top-1/2 -translate-y-1/2 z-20 w-9 h-9 rounded-full bg-black/45 hover:bg-[#DF711B] text-white items-center justify-center border border-white/20 backdrop-blur-sm transition-colors cursor-pointer"
+            className="hidden sm:flex absolute left-4 bottom-3 z-20 w-9 h-9 rounded-full bg-black/45 hover:bg-[#DF711B] text-white items-center justify-center border border-white/20 backdrop-blur-sm transition-colors cursor-pointer"
           >
             <ChevronLeft className="w-5 h-5" />
           </button>
@@ -336,12 +370,12 @@ export const HeroBannerSection: React.FC = () => {
             type="button"
             onClick={handleNext}
             aria-label="Next slide"
-            className="hidden sm:flex absolute right-3 top-1/2 -translate-y-1/2 z-20 w-9 h-9 rounded-full bg-black/45 hover:bg-[#DF711B] text-white items-center justify-center border border-white/20 backdrop-blur-sm transition-colors cursor-pointer"
+            className="hidden sm:flex absolute right-4 bottom-3 z-20 w-9 h-9 rounded-full bg-black/45 hover:bg-[#DF711B] text-white items-center justify-center border border-white/20 backdrop-blur-sm transition-colors cursor-pointer"
           >
             <ChevronRight className="w-5 h-5" />
           </button>
 
-          <div className="relative z-20 pb-4 flex items-center justify-center gap-2">
+          <div className="absolute bottom-3 inset-x-0 z-20 flex items-center justify-center gap-2">
             {HERO_SLIDES.map((slide, idx) => (
               <button
                 key={slide.id}

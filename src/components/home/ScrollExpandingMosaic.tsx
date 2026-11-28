@@ -288,12 +288,12 @@ export const ScrollExpandingMosaic: React.FC = () => {
           />
         </div>
 
-        {/* Centered Paragraph, max-width ~480px, 18-20px, line-height 1.6 */}
+        {/* Centered Sanskrit Motto */}
         <p
           style={{ color: 'var(--color-text)' }}
-          className="max-w-[480px] text-[18px] sm:text-[20px] leading-[1.6] font-sans text-balance"
+          className="text-3xl sm:text-4xl lg:text-[42px] font-serif font-bold tracking-wide leading-relaxed m-0"
         >
-          Rooted in the timeless wisdom of the <strong>Chinmaya Vision Programme</strong>, our school nurtures <strong>scholastic distinction</strong>, integrated character, and intellectual agility for pupils from <strong>Nursery through Grade XII</strong>.
+          विद्या ददाति विनयम
         </p>
       </div>
     </div>

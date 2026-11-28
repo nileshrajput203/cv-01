@@ -60,17 +60,35 @@ export const ScrollToTop = () => {
       const maxAttempts = 30;
       let timerId: ReturnType<typeof setTimeout>;
       const allTimers: ReturnType<typeof setTimeout>[] = [];
+      let userInteracted = false;
+      let lastTargetY: number | null = null;
+
+      const cancelHashTimers = () => {
+        userInteracted = true;
+        clearTimeout(timerId);
+        allTimers.forEach((t) => clearTimeout(t));
+      };
+
+      window.addEventListener('wheel', cancelHashTimers, { passive: true, once: true });
+      window.addEventListener('touchstart', cancelHashTimers, { passive: true, once: true });
+      window.addEventListener('keydown', cancelHashTimers, { passive: true, once: true });
 
       // Compute the exact pixel position and jump there immediately.
       // Using a numeric value avoids Lenis animation drift caused by
       // layout shifts when images load after the scroll starts.
       const scrollToHashElement = () => {
+        if (userInteracted) return false;
         try {
           const element = document.querySelector(hash);
           if (element) {
             const rect = element.getBoundingClientRect();
             const currentScroll = window.scrollY || document.documentElement.scrollTop;
             const targetY = Math.max(0, rect.top + currentScroll - 100);
+
+            if (lastTargetY !== null && Math.abs(targetY - lastTargetY) <= 4) {
+              return true;
+            }
+            lastTargetY = targetY;
 
             const l = (window as any).__lenis;
             if (l) {
@@ -87,10 +105,10 @@ export const ScrollToTop = () => {
       };
 
       const tryScroll = () => {
+        if (userInteracted) return;
         if (scrollToHashElement()) {
-          // Re-adjust after short delays to compensate for images loading
-          // and causing layout shifts that change the element's position
-          const delays = [200, 500, 1000, 2000];
+          // Re-adjust briefly only if layout shifts before the user starts scrolling
+          const delays = [150, 400];
           delays.forEach((delay) => {
             const t = setTimeout(() => scrollToHashElement(), delay);
             allTimers.push(t);
@@ -109,6 +127,9 @@ export const ScrollToTop = () => {
       return () => {
         clearTimeout(timerId);
         allTimers.forEach((t) => clearTimeout(t));
+        window.removeEventListener('wheel', cancelHashTimers);
+        window.removeEventListener('touchstart', cancelHashTimers);
+        window.removeEventListener('keydown', cancelHashTimers);
       };
     }
   }, [pathname, search, hash]);

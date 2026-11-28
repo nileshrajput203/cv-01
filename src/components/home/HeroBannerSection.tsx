@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { ChevronLeft, ChevronRight, CheckCircle2, Send, Loader2 } from 'lucide-react';
+import { ChevronLeft, ChevronRight, CheckCircle2, Send, Loader2, X } from 'lucide-react';
 import { formService } from '../../services/formService';
 import { useToast } from '../../context/ToastContext';
 
@@ -217,9 +217,19 @@ export const HeroBannerSection: React.FC = () => {
               <h2 className="font-display font-extrabold text-base sm:text-lg text-[#181C20] m-0">
                 Admissions Open for
               </h2>
-              <span className="px-2.5 py-1 rounded-lg bg-[#FFF4E5] border border-[#DF711B]/30 text-[#DF711B] font-mono font-bold text-xs">
-                2027-2028
-              </span>
+              <div className="flex items-center gap-1.5">
+                <span className="px-2.5 py-1 rounded-lg bg-[#FFF4E5] border border-[#DF711B]/30 text-[#DF711B] font-mono font-bold text-xs">
+                  2027-2028
+                </span>
+                <button
+                  type="button"
+                  onClick={() => setIsFormOpen(false)}
+                  aria-label="Close admissions form"
+                  className="p-1 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors cursor-pointer"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
             </div>
 
             {submitted ? (

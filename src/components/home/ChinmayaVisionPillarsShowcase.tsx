@@ -139,8 +139,8 @@ export const ChinmayaVisionPillarsShowcase: React.FC = () => {
         </div>
 
         {/* 4-Column Card Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {CVP_PILLARS.map((pillar) => (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+          {CVP_PILLARS.map((pillar, idx) => (
             <Link
               key={pillar.num}
               to={pillar.targetUrl}
@@ -158,23 +158,26 @@ export const ChinmayaVisionPillarsShowcase: React.FC = () => {
               </div>
 
               {/* Card Body: White default -> Orange gradient on hover */}
-              <div className="relative flex-1 p-5 sm:p-6 flex flex-col justify-between bg-white group-hover:bg-gradient-to-b group-hover:from-[#F4931E] group-hover:to-[#DF711B] transition-colors duration-300">
+              <div className="relative flex-1 p-4 sm:p-6 flex flex-col justify-between bg-white group-hover:bg-gradient-to-b group-hover:from-[#F4931E] group-hover:to-[#DF711B] transition-colors duration-300">
                 <div>
                   <h3 className="font-sans font-bold text-[17px] sm:text-[18px] leading-snug text-[#0B1D30] group-hover:text-white transition-colors duration-300 m-0">
+                    <span className="sm:hidden text-[#DF711B] group-hover:text-white mr-1.5">
+                      {idx + 1}.
+                    </span>
                     {pillar.shortTitle}
                   </h3>
 
-                  <div className="my-3 h-[1px] w-full bg-slate-200 group-hover:bg-white/30 transition-colors duration-300" />
+                  <div className="my-2.5 sm:my-3 h-[1px] w-full bg-slate-200 group-hover:bg-white/30 transition-colors duration-300" />
 
-                  {/* Fixed-height grid stack prevents layout shift on hover */}
-                  <div className="grid">
+                  {/* On mobile: compact statement only (no hidden hover ul inflating height). On sm+: grid stack prevents hover jump */}
+                  <div className="sm:grid">
                     {/* Default vision statement */}
-                    <p className="col-start-1 row-start-1 text-[13px] leading-relaxed text-slate-600 opacity-100 group-hover:opacity-0 transition-opacity duration-200 m-0">
+                    <p className="sm:col-start-1 sm:row-start-1 text-[13px] leading-relaxed text-slate-600 opacity-100 sm:group-hover:opacity-0 transition-opacity duration-200 m-0">
                       {pillar.visionStatement}
                     </p>
 
-                    {/* Hover key points list */}
-                    <ul className="col-start-1 row-start-1 flex flex-col gap-1.5 text-[12px] font-medium text-white/95 list-none p-0 m-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none group-hover:pointer-events-auto">
+                    {/* Hover key points list (desktop/tablet only) */}
+                    <ul className="hidden sm:flex sm:col-start-1 sm:row-start-1 flex-col gap-1.5 text-[12px] font-medium text-white/95 list-none p-0 m-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none group-hover:pointer-events-auto">
                       {pillar.keyPoints.map((point) => (
                         <li key={point} className="leading-snug border-b border-white/15 pb-1 last:border-b-0 last:pb-0">
                           {point}
@@ -185,7 +188,7 @@ export const ChinmayaVisionPillarsShowcase: React.FC = () => {
                 </div>
 
                 {/* Bottom-right square arrow button */}
-                <div className="pt-5 flex justify-end">
+                <div className="pt-3 sm:pt-5 flex justify-end">
                   <span className="w-7 h-7 rounded-[2px] border border-[#DF711B]/70 group-hover:border-white/80 text-[#DF711B] group-hover:text-white flex items-center justify-center transition-colors duration-300">
                     <ChevronRight className="w-4 h-4" />
                   </span>

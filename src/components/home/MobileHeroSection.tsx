@@ -17,9 +17,9 @@ export const MobileHeroSection: React.FC<MobileHeroSectionProps> = ({ onOpenAdmi
       <div className="relative w-full aspect-[16/11] xs:aspect-[16/10] sm:aspect-[16/9] min-h-[270px] max-h-[420px] overflow-hidden bg-[#0A1626]">
         {/* School Building Photography */}
         <picture>
-          <source srcSet="/images/banner-1.webp" type="image/webp" />
+          <source srcSet="/images/hero-campus-front.webp" type="image/webp" />
           <img
-            src="/images/banner-1.jpg"
+            src="/images/hero-campus-front.png"
             alt="Chinmaya Vidyalaya Tarapur Campus Building"
             className="w-full h-full object-cover object-center select-none"
             loading="eager"

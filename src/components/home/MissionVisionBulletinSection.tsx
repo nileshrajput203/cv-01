@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Eye, Target, Calendar, Clock, MapPin, ArrowUpRight, ArrowRight } from 'lucide-react';
+import { Calendar, Clock, MapPin, ArrowUpRight, ArrowRight } from 'lucide-react';
 import { UPCOMING_EVENTS } from '../../data/events';
 
 const parseBadgeDate = (dateStr: string): { monthShort: string; day: string } => {
@@ -63,66 +63,18 @@ export const MissionVisionBulletinSection: React.FC = () => {
            ---------------------------------------------------- */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-6 items-stretch">
 
-          {/* LEFT 7 COLUMNS: VISION & MISSION */}
-          <div className="lg:col-span-7 flex flex-col gap-4">
-            {[
-              {
-                num: '01',
-                label: '01 / Institutional Vision',
-                title: 'Our Vision',
-                badge: 'Pioneering Future',
-                quote: '“To empower a community of learners who dare to dream, take risks and develop new realities.”',
-                Icon: Eye,
-              },
-              {
-                num: '02',
-                label: '02 / Sacred Mission',
-                title: 'Our Mission',
-                badge: 'Timeless Values',
-                quote: '“To offer value-based holistic education that integrates ancient Indian cultural ethos with modern scientific inquiry.”',
-                Icon: Target,
-              },
-            ].map(({ num, label, title, badge, quote, Icon }) => (
-              <article
-                key={num}
-                className="group relative flex-1 rounded-3xl bg-[#FBF6EE] text-[#181C20] p-5 sm:p-6 overflow-hidden shadow-[0_14px_40px_rgba(24,28,32,0.05)] border border-[#E7E2D8] hover:border-[#DF711B]/50 transition-colors flex flex-col justify-center"
-              >
-                {/* Oversized Architectural Watermark */}
-                <span
-                  aria-hidden="true"
-                  className="pointer-events-none select-none absolute right-5 bottom-1 font-display font-black text-[72px] sm:text-[88px] leading-none text-[#181C20]/[0.04] tracking-tighter"
-                >
-                  {num}
-                </span>
-
-                <div className="relative z-10 space-y-3.5">
-                  {/* Top Meta Row */}
-                  <div className="flex items-center justify-between gap-3">
-                    <div className="flex items-center gap-3">
-                      <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#DF711B] to-[#FFB740] text-white flex items-center justify-center shadow-md shrink-0">
-                        <Icon className="w-4 h-4" />
-                      </div>
-                      <div>
-                        <span className="text-[10px] font-mono font-bold uppercase tracking-[0.22em] text-[#DF711B] block">
-                          {label}
-                        </span>
-                        <h3 className="font-cinzel text-lg sm:text-xl font-extrabold text-[#181C20] tracking-tight m-0">
-                          {title}
-                        </h3>
-                      </div>
-                    </div>
-                    <span className="hidden sm:inline-block px-3 py-1 rounded-full bg-white border border-[#DF711B]/25 text-[10px] font-mono font-bold text-[#DF711B] uppercase tracking-wider">
-                      {badge}
-                    </span>
-                  </div>
-
-                  {/* Editorial Pull Quote */}
-                  <blockquote className="font-serif italic text-base sm:text-[19px] lg:text-[21px] text-[#181C20] font-semibold leading-[1.35] border-l-2 border-[#DF711B] pl-4 m-0">
-                    {quote}
-                  </blockquote>
-                </div>
-              </article>
-            ))}
+          {/* LEFT 7 COLUMNS: VISION & MISSION PLAQUE */}
+          <div className="lg:col-span-7 flex items-center justify-center">
+            <picture className="flex items-center justify-center w-full">
+              <source srcSet="/images/vision-mission-plaque.webp" type="image/webp" />
+              <img
+                src="/images/vision-mission-plaque.png"
+                alt="Chinmaya Vidyalaya Our Vision and Our Mission Plaque"
+                loading="lazy"
+                decoding="async"
+                className="w-auto max-w-full max-h-[440px] sm:max-h-[500px] lg:max-h-[540px] object-contain mx-auto drop-shadow-[0_18px_40px_rgba(11,29,48,0.12)] select-none"
+              />
+            </picture>
           </div>
 
           {/* RIGHT 5 COLUMNS: CURATED CAMPUS DISPATCH / UPCOMING EVENTS BULLETIN */}
